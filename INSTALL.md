@@ -21,11 +21,14 @@ bash install.sh --yes           # 装依赖 → venv → 依赖 → 字体 →�
 ./IDE/run_mesa.sh               # 启动
 ```
 
-### 方式 B：发行包
+### 方式 B：源码压缩包
+
+从 Releases 页下载该 tag 自动生成的 `Source code (tar.gz)`（仅源码与字体，
+不含 MESA / MESA SDK）：
 
 ```bash
-tar -xzf MESA-IDE-1.1-linux.tar.gz
-cd MESA-IDE-1.1
+tar -xzf MESA-IDE-Console-1.1.tar.gz
+cd MESA-IDE-Console-1.1
 bash install.sh                 # 交互式：缺什么问什么
 ```
 

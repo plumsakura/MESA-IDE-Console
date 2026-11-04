@@ -167,12 +167,13 @@ bash install-all.sh --skip-build     # 只装 IDE + 解压源码，不编译
 
 ### 方式 C：源码压缩包
 
-不想用 git 时，可从 [Releases](https://github.com/plumsakura/MESA-IDE-Console/releases)
-下载 `MESA-IDE-1.1-linux.tar.gz`：
+不想用 git 时，从 [Releases](https://github.com/plumsakura/MESA-IDE-Console/releases)
+下载该版本自动生成的 `Source code (tar.gz)`（约 27 MB，仅源码与字体，**不含**
+MESA / MESA SDK）：
 
 ```bash
-tar -xzf MESA-IDE-1.1-linux.tar.gz
-cd MESA-IDE-1.1
+tar -xzf MESA-IDE-Console-1.1.tar.gz
+cd MESA-IDE-Console-1.1
 bash install.sh --yes
 ```
 
