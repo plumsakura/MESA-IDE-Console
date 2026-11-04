@@ -165,13 +165,15 @@ bash install-all.sh --skip-build     # 只装 IDE + 解压源码，不编译
 
 详见 [packaging/README.md](packaging/README.md)。
 
-### 方式 C：单文件自解压安装器
+### 方式 C：源码压缩包
 
-Release 页提供了预构建的 `MESA-IDE-1.1-installer.run`：
+不想用 git 时，可从 [Releases](https://github.com/plumsakura/MESA-IDE-Console/releases)
+下载 `MESA-IDE-1.1-linux.tar.gz`：
 
 ```bash
-bash MESA-IDE-1.1-installer.run --yes             # 默认装到 ~/MESA-IDE
-bash MESA-IDE-1.1-installer.run --dir ~/apps/mesa # 指定目录
+tar -xzf MESA-IDE-1.1-linux.tar.gz
+cd MESA-IDE-1.1
+bash install.sh --yes
 ```
 
 ## 使用

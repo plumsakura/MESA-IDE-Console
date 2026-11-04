@@ -29,15 +29,7 @@ cd MESA-IDE-1.1
 bash install.sh                 # 交互式：缺什么问什么
 ```
 
-### 方式 C：单文件自解压安装器
-
-```bash
-bash MESA-IDE-1.1-installer.run                    # 默认装到 ~/MESA-IDE
-bash MESA-IDE-1.1-installer.run --dir ~/apps/mesa  # 指定目录
-bash MESA-IDE-1.1-installer.run --yes              # 无人值守
-```
-
-### 方式 D：完整安装包（IDE + MESA 源码 + SDK，一条命令）
+### 方式 C：完整安装包（IDE + MESA 源码 + SDK，一条命令）
 
 先按 [docs/DOWNLOADS.md](docs/DOWNLOADS.md) 下载两个官方归档，然后：
 
