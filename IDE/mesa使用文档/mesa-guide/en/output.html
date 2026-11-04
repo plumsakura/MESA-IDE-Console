@@ -1,0 +1,1145 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>MESA output &#8212; MESA 26.4.1 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=3109fedd" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=aea46d76"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'using_mesa/output';</script>
+    <link rel="canonical" href="https://docs.mesastar.org/en/26.4.1/using_mesa/output.html" />
+    <link rel="icon" href="../_static/mesa-favicon.png"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Using PGSTAR" href="using_pgstar.html" />
+    <link rel="prev" title="Running MESA" href="running.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <script async type="text/javascript" src="/_/static/javascript/readthedocs-addons.js"></script><meta name="readthedocs-project-slug" content="mesa-doc" /><meta name="readthedocs-version-slug" content="26.4.1" /><meta name="readthedocs-resolver-filename" content="/using_mesa/output.html" /><meta name="readthedocs-http-status" content="200" /></head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/mesa-logo.png" class="logo__image only-light" alt="MESA 26.4.1 documentation - Home"/>
+    <script>document.write(`<img src="../_static/mesa-logo.png" class="logo__image only-dark" alt="MESA 26.4.1 documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://zenodo.org/records/18023257" title="Official Release Version" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-star fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Official Release Version</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="http://user.astro.wisc.edu/~townsend/static.php?ref=mesasdk" title="MESA SDK" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-gears fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">MESA SDK</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://lists.mesastar.org/mailman/listinfo/mesa-users" title="Mailing List" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Mailing List</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/MESAHub/mesa" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installing MESA</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../using_mesa.html">Using MESA</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="running.html">Running MESA</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">MESA output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="using_pgstar.html">Using PGSTAR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building_inlists.html">Building inlists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="extending_mesa.html">Extending MESA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="best_practices.html">Best practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="just_a_module.html">Just a Module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../modules.html">Modules</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../atm/overview.html">Overview of Atmosphere Choices</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../atm/t-tau.html">T(tau) Atmospheres</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../atm/table.html">Table Atmospheres</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../atm/irradiated.html">Irradiated Atmosphere</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../atm/paczynski.html">Paczynski Grey Atmosphere</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../atm/fixed-teff.html">Fixed Effective Temperature</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../atm/fixed-tsurf.html">Fixed Surface Temperature</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../atm/fixed-psurf.html">Fixed Surface Pressure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../atm/fixed-psurf-tsurf.html">Fixed Surface Pressure and Temperature</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../atm/mapping.html">Mapping from Old to New</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../atm/structure.html">Atmosphere Structure Building</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../auto_diff/overview.html">Overview of auto_diff module</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="simple">
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../auto_diff/example.html">Example of <code class="docutils literal notranslate"><span class="pre">auto_diff</span></code> in <code class="docutils literal notranslate"><span class="pre">run_star_extras</span></code></a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="simple">
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_diff/more_detail.html">More detail on the <code class="docutils literal notranslate"><span class="pre">auto_diff</span></code> module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../colors/overview.html">Overview of colors module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../colors/defaults.html"><code class="docutils literal notranslate"><span class="pre">colors</span></code> module controls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../eos/overview.html">Overview of eos module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../eos/defaults.html">eos module controls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../eos/interface.html">eos module Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../kap/overview.html">Overview of kap module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../kap/defaults.html">kap module controls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../kap/interface.html">kap module Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net/overview.html">Overview of net module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net/nets.html">Reaction Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rates/overview.html">Overview of rates module</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../turb/overview.html">Overview of turb module</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="simple">
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../reference.html">Reference and Defaults</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reference/star_job.html">star_job</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/controls.html">controls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/pgstar.html">pgstar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/binary_job.html">binary_job</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/binary_controls.html">binary_controls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/pgbinary.html">pgbinary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/astero_search.html">astero_search_controls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/astero_pgstar.html">astero_pgstar_controls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/eos.html">eos module controls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/kap.html">kap module controls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/colors.html"><code class="docutils literal notranslate"><span class="pre">colors</span></code> module controls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/hooks.html">hooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/env_vars.html">Environment Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/format.html">Format for MESA defaults files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/star_job_dev.html">star_job_dev</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/controls_dev.html">controls_dev</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../test_suite.html">Test Suite</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/1.3M_ms_high_Z.html">1.3M_ms_high_Z</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/1.4M_ms_op_mono.html">1.4M_ms_op_mono</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/1.5M_with_diffusion.html">1.5M_with_diffusion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/12M_pre_ms_to_core_collapse.html">12M_pre_ms_to_core_collapse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/15M_dynamo.html">15M_dynamo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/16M_conv_premix.html">16M_conv_premix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/16M_predictive_mix.html">16M_predictive_mix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/1M_pre_ms_to_wd.html">1M_pre_ms_to_wd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/1M_thermohaline.html">1M_thermohaline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/20M_pre_ms_to_core_collapse.html">20M_pre_ms_to_core_collapse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/20M_z2m2_high_rotation.html">20M_z2m2_high_rotation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/5M_cepheid_blue_loop.html">5M_cepheid_blue_loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/7M_prems_to_AGB.html">7M_prems_to_AGB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/R_CrB_star.html">R_CrB_star</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/T_tau_gradr.html">T_tau_gradr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/accreted_material_j.html">accreted_material_j</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/adjust_net.html">adjust_net</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/c13_pocket.html">c13_pocket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/carbon_kh.html">carbon_kh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/cburn_inward.html">cburn_inward</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/ccsn_IIp.html">ccsn_IIp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/check_pulse_atm.html">check_pulse_atm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/conductive_flame.html">conductive_flame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/conserve_angular_momentum.html">conserve_angular_momentum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/conv_core_cpm.html">conv_core_cpm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/custom_colors.html">Colors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/custom_rates.html">custom_rates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/diffusion_smoothness.html">diffusion_smoothness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/evolve_both_stars.html">evolve_both_stars</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/example_astero.html">example_astero</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/extended_convective_penetration.html">extended_convective_penetration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/fast_from_file.html">fast_from_file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/fast_newuoa.html">fast_newuoa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/fast_scan_grid.html">fast_scan_grid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/fast_simplex.html">fast_simplex</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/gyre_in_mesa_bcep.html">gyre_in_mesa_bcep</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/gyre_in_mesa_envelope.html">gyre_in_mesa_envelope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/gyre_in_mesa_ms.html">gyre_in_mesa_ms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/gyre_in_mesa_rsg.html">gyre_in_mesa_rsg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/gyre_in_mesa_spb.html">gyre_in_mesa_spb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/gyre_in_mesa_wd.html">gyre_in_mesa_wd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/hb_2M.html">hb_2M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/high_mass.html">high_mass</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/high_z.html">high_z</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/hot_cool_wind.html">hot_cool_wind</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/hse_riemann.html">hse_riemann</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/irradiated_planet.html">irradiated_planet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/jdot_gr_check.html">jdot_gr_check</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/jdot_ls_check.html">jdot_ls_check</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/jdot_ml_check.html">jdot_ml_check</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/low_z.html">low_z</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/magnetic_braking.html">magnetic_braking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/make_brown_dwarf.html">make_brown_dwarf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/make_co_wd.html">make_co_wd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/make_env.html">make_env</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/make_he_wd.html">make_he_wd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/make_metals.html">make_metals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/make_o_ne_wd.html">make_o_ne_wd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/make_planets.html">make_planets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/make_sdb.html">make_sdb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/make_zams.html">make_zams</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/make_zams_low_mass.html">make_zams_low_mass</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/make_zams_ultra_high_mass.html">make_zams_ultra_high_mass</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/ns_c.html">ns_c</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/ns_h.html">ns_h</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/ns_he.html">ns_he</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/other_physics_hooks.html">other_physics_hooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/pisn.html">pisn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/ppisn.html">ppisn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/radiative_levitation.html">radiative_levitation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/relax_composition_j_entropy.html">relax_composition_j_entropy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/rsp_BEP.html">rsp_BEP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/rsp_BLAP.html">rsp_BLAP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/rsp_Cepheid.html">rsp_Cepheid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/rsp_Delta_Scuti.html">rsp_Delta_Scuti</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/rsp_RR_Lyrae.html">rsp_RR_Lyrae</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/rsp_Type_II_Cepheid.html">rsp_Type_II_Cepheid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/rsp_check_2nd_crossing.html">rsp_check_2nd_crossing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/rsp_save_and_load_file.html">rsp_save_and_load_file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/semiconvection.html">semiconvection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/simplex_solar_calibration.html">simplex_solar_calibration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/split_burn_big_net.html">split_burn_big_net</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/star_plus_point_mass.html">star_plus_point_mass</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/star_plus_point_mass_explicit_mdot.html">star_plus_point_mass_explicit_mdot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/starspots.html">starspots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/surface_effects.html">surface_effects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/test_memory.html">test_memory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/timing.html">timing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/twin_studies.html">twin_studies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/tzo.html">TZO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/wd_acc_small_dm.html">wd_acc_small_dm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/wd_aic.html">wd_aic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/wd_c_core_ignition.html">wd_c_core_ignition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/wd_cool_0.6M.html">wd_cool_0.6M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/wd_diffusion.html">wd_diffusion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/wd_he_shell_ignition.html">wd_he_shell_ignition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/wd_nova_burst.html">wd_nova_burst</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/wd_stable_h_burn.html">wd_stable_h_burn</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About MESA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../summer_schools.html">MESA Summer Schools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_of_conduct.html">MESA Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../developing.html">Developing MESA</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../developing/collaboration.html">MESA Collaboration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing/new_developers.html">New developers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing/contributing.html">How to contribute</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing/documentation.html">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing/code_style.html">Coding style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing/tour.html">A Tour of MESA/star</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing/common_tasks.html">Common Tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing/debugging.html">Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing/linters.html">Linters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing/plotters.html">Plotters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing/profiling.html">Profiling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing/coverage.html">Coverage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing/test_suite.html">The Test Suite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing/infrastructure.html">Infrastructure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing/release.html">Release checklist</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../known_bugs.html">Known bugs</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../news.html">News archive</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../news/2021-02-18-tinsley-prize.html">2021 Tinsley Prize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2020-12-07-r15140.html">Release 15140</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2020-03-05-r12778.html">Release 12778</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2020-03-03-mesasdk.html">New MESA SDK Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2020-01-09-summerschool.html">Summer School 2020</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2019-09-10-r12115.html">Release 12115</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2019-08-30-mesasdk.html">New MESA SDK Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2019-05-03-r11701.html">Release 11701</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2019-05-03-mesasdk.html">New MESA SDK Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2019-03-15-r11554.html">Release 11554</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2019-03-15-mesasdk.html">New MESA SDK Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2019-03-04-r11532.html">Release 11532</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2019-03-04-instrument-paper-5.html">Instrument Paper 5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2019-01-11-summerschool.html">Summer School 2019</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2018-03-21-r10398.html">Release 10398</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2018-01-28-mesasdk.html">New MESA SDK Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2018-01-13-summerschool.html">Summer School 2018</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2017-10-23-r10108.html">Release 10108</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2017-10-23-instrument-paper-4.html">Instrument Paper 4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2017-09-21-mesasdk.html">New MESA SDK Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2017-09-12-r10000.html">Release 10000</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2017-09-01-three-updates.html">Docker, Python and Web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2017-08-14-new-mesa-users.html">New mesa-users list</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2017-08-02-mesasdk.html">New MESA SDK Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2017-05-31-r9793.html">Release 9793</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2017-04-08-mesa-marketplace.html">MESA Marketplace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2017-02-17-r9575.html">Release 9575</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2017-01-25-diffusion-updates.html">Diffusion Updates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2017-01-08-summerschool.html">Summer School 2017</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2016-08-10-old-docs.html">Documentation Archive</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2016-06-19-r8845.html">Release 8845</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2016-02-03-r8118.html">Release 8118</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2016-01-29-mesasdk.html">New MESA SDK Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2016-01-10-summerschool.html">Summer School 2016</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2015-09-27-instrument-paper-3.html">Instrument Paper 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2015-09-14-mesa-web-update.html">MESA-Web Updates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2015-09-08-mesasdk.html">New MESA SDK Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2015-09-03-updated-mesa-maps.html">Updated MESA Maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2015-08-27-summerschool-success.html">Summer School Success!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2015-06-03-r7624.html">Release 7624</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2015-06-01-mesa-web.html">Release of MESA-Web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2015-03-27-r7503.html">Release 7503</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2015-03-20-r7499.html">Release 7499</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2015-01-13-r7385.html">Release 7385</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2015-01-12-summerschool.html">Summer School 2015</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2014-12-12-mesasdk.html">New MESA SDK Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2014-10-22-r7184.html">Release 7184</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2014-08-25-pgstar-screencast.html">pgstar Screencast</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2014-07-20-r6794.html">Release 6794</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2014-07-15-mesasdk.html">New MESA SDK Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2014-07-14-installation-video.html">Installation Screencast</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2014-07-01-zipfiles.html">MESA Release Zip files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2014-06-08-r6596.html">Release 6596</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2014-03-24-r6208.html">Release 6208</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2014-03-21-website.html">New MESA Website</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2014-03-21-r6188.html">Release 6188</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2014-03-13-mesasdk.html">New MESA SDK Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2014-02-28-r6022.html">Release 6022</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2014-02-03-summerschool.html">Summer School 2014</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2014-01-05-r5819.html">Release 5819</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2013-12-23-mesasdk.html">New MESA SDK Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2013-11-15-r5596.html">Release 5596</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2013-10-10-r5527.html">Release 5527</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2013-09-20-r5456.html">Release 5456</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2013-08-19-r5329.html">Release 5329</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2013-07-27-r5271.html">Release 5271</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2013-07-18-r5232.html">Release 5232</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2013-06-16-r5118.html">Release 5118</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2013-04-30-r4942.html">Release 4942</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2013-04-11-r4906.html">Release 4906</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2013-03-20-r4849.html">Release 4849</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2013-03-01-sourceforge-migration.html">SourceForge Repository Change</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2013-02-06-r4798.html">Release 4798</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2012-12-29-r4740.html">Release 4740</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2012-12-19-r4723.html">Release 4723</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2012-10-26-r4631.html">Release 4631</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2012-08-29-r4442.html">Release 4442</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2012-08-25-r4411.html">Release 4411</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2012-08-01-r4298.html">Release 4298</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2012-07-18-r4219.html">Release 4219</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2012-06-09-r4088.html">Release 4088</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2012-04-28-r4028.html">Release 4028</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2012-02-27-r3918.html">Release 3918</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2012-01-10-r3851.html">Release 3851</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2011-12-14-r3794.html">Release 3794</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2011-11-06-r3723.html">Release 3723</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2011-10-31-r3709.html">Release 3709</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2011-09-22-r3635.html">Release 3635</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2011-06-14-r3372.html">Release 3372</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2011-05-20-r3290.html">Release 3290</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2011-04-29-r3251.html">Release 3251</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2011-03-20-r3107.html">Release 3107</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2011-03-03-r3075.html">Release 3075</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2011-02-05-r2987.html">Release 2987</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2011-01-20-r2941.html">Release 2941</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2011-01-01-r2891.html">Release 2891</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-12-23-r2871.html">Release 2871</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-11-19-r2808.html">Release 2808</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-11-09-r2790.html">Release 2790</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-10-23-r2745.html">Release 2745</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-10-03-r2699.html">Release 2699</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-09-16-r2664.html">Release 2664</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-08-26-r2637.html">Release 2637</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-08-19-r2618.html">Release 2618</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-08-06-r2602.html">Release 2602</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-07-31-r2578.html">Release 2578</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-07-26-r2557.html">Release 2557</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-07-19-r2533.html">Release 2533</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-06-05-r2404.html">Release 2404</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-05-15-r2341.html">Release 2341</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-04-13-r2258.html">Release 2258</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-03-13-r2208.html">Release 2208</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-01-26-r2078.html">Release 2078</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2009-11-26-r1943.html">Release 1943</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2009-10-06-r1822.html">Release 1822</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2009-09-21-r1728.html">Release 1728</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2009-09-11-r1691.html">Release 1691</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2009-08-09-r1585.html">Release 1585</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2009-07-18-r1489.html">Release 1489</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2009-06-28-r1396.html">Release 1396</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2009-06-07-r1296.html">Release 1296</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2009-05-12-r1249.html">Release 1249</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2009-03-16-r1145.html">Release 1145</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2009-02-27-r1118.html">Release 1118</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2009-01-25-r0971.html">Release 0971</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2008-11-11-r0776.html">Release 0776</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2007-01-23-r0001.html">Release 0001</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+  <div id="ethical-ad-placement"
+       class="flat"
+       data-ea-publisher="readthedocs"
+       data-ea-type="readthedocs-sidebar"
+       data-ea-manual="true">
+  </div>
+</div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/MESAHub/mesa" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/MESAHub/mesa/blob/main/docs/source/using_mesa/output.rst?plain=1" target="_blank"
+   class="btn btn-sm btn-source-file-button dropdown-item"
+   title="Show source"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="btn__text-container">Show source</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/MESAHub/mesa/edit/main/docs/source/using_mesa/output.rst" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/using_mesa/output.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>MESA output</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#output-files">Output files</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#history-data">history.data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#profiles-index">profiles.index</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#profile-data">profile.data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-output-quantities">Selecting output quantities</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-mesa-output">Plotting MESA output</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-mesa-reader">What is MESA Reader?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-install-mesa-reader">How to install MESA Reader?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#the-basics">The Basics</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#an-hr-diagram">An HR Diagram</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-temperature-density-profile">A Temperature-Density Profile</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#going-beyond">Going Beyond</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="mesa-output">
+<h1>MESA output<a class="headerlink" href="#mesa-output" title="Link to this heading">#</a></h1>
+<section id="output-files">
+<h2>Output files<a class="headerlink" href="#output-files" title="Link to this heading">#</a></h2>
+<p>By default, MESA stores its data in the <cite>LOGS</cite> directory. The data files
+are text-based and can be fed into your favorite plotting program. You
+should visit the
+<a class="reference external" href="https://mesastar.org/marketplace/add-ons/">Add-ons</a> section
+of the MESA forum and see if someone has contributed code in your
+language of choice. (There are reasonably mature routines for Python,
+IDL, ruby and Mathematica.) An example of Python plotting is shown
+<a class="reference external" href="#plotting-mesa-output">later on this page</a>.</p>
+<p>In the LOGS directory, you’ll find the following files.</p>
+<section id="history-data">
+<h3>history.data<a class="headerlink" href="#history-data" title="Link to this heading">#</a></h3>
+<p>The history for the run is saved, one line per logged model, in the file
+“history.data”. The first line of history.data has column numbers, the
+second line has column names, and the following lines have the
+corresponding values. In case of a restart, lines are not
+removed from the history.data; instead new values are simply appended to
+the end of the file. As a result the model_numbers are not guaranteed to
+be monotonically increasing in the log. The code that uses the history
+must bear the burden of removing lines that have been made obsolete.
+This can most easily be done by storing
+the data into arrays as it is read using the model_number as the array
+index. That way you’ll automatically discard obsolete values by
+overwriting them with the newer ones that appear later in the history
+file.</p>
+</section>
+<section id="profiles-index">
+<h3>profiles.index<a class="headerlink" href="#profiles-index" title="Link to this heading">#</a></h3>
+<p>MESA doesn’t store profiles for every step (that’d take up too much
+space). This list tells you how to translate between the numbers in the
+profile filenames and the MESA model numbers. By default, MESA will
+store a profile at the end of the run.</p>
+<p>For each profile, there is a line in profiles.index giving the model
+number, its priority, and its profile number. Priority level 2 is for
+models saved because of some special event in the evolution such as the
+onset of helium burning. Priority level 1 is for models saved because
+the number of models since the most recent profile has reached the
+currently setting of the profile_interval parameter.</p>
+</section>
+<section id="profile-data">
+<h3>profile.data<a class="headerlink" href="#profile-data" title="Link to this heading">#</a></h3>
+<p>The profiles contain detailed information about a selected set of
+models, one model per file. The name of the profile data file is
+determined by the profile number. For example, if the profile number is
+15, the profile data will be found in the file named ‘profile15.data’.</p>
+<p>Each profile includes both a set of global properties of the star, such
+as its age, and a large set of properties for each point in the model of
+the star given one line per point. In each case, the lines of data are
+preceded by a line with column numbers and a line with column names.</p>
+</section>
+</section>
+<section id="selecting-output-quantities">
+<h2>Selecting output quantities<a class="headerlink" href="#selecting-output-quantities" title="Link to this heading">#</a></h2>
+<p>The default MESA output is set by the files</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span>MESA_DIR/star/defaults/history_columns.list
+<span class="gp">$</span>MESA_DIR/star/defaults/profile_columns.list
+</pre></div>
+</div>
+<p>In order to customize the output, copy these files to your work
+directory</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cp $MESA_DIR/star/defaults/history_columns.list .</span>
+<span class="go">cp $MESA_DIR/star/defaults/profile_columns.list .</span>
+</pre></div>
+</div>
+<p>Then, open up history_columns.list or profile_columns.list in a text
+editor. The file describes the full list of the available options. To
+add/remove the columns of interest, comment/uncomment any lines (‘!’ is
+the comment character).</p>
+<p>But what if you want a history or profile quantity that isn’t on the
+list? For that, you’ll want to <a class="reference external" href="run_star_extras.html">use
+run_star_extras.f</a>.</p>
+</section>
+<section id="plotting-mesa-output">
+<h2>Plotting MESA output<a class="headerlink" href="#plotting-mesa-output" title="Link to this heading">#</a></h2>
+<p>While pgstar is great for observing your stellar models evolving in real
+time and for quickly making videos, more complicated and higher-quality
+plots require post-processing in another environment. Perhaps the most
+popular environment in recent years is Python, and in particular, via
+the <a class="reference external" href="http://www.numpy.org">numpy</a> and
+<a class="reference external" href="http://matplotlib.org">matplotlib</a> packages.</p>
+<p>While you may want to write your own tools to read and analyze the
+output of your MESA calculations, <a class="reference external" href="https://mesastar.org/marketplace/add-ons/">many already
+exist</a>. In that
+vein, we introduce a simple module for use in Python scripts and
+interactive sessions called <code class="docutils literal notranslate"><span class="pre">mesa_reader</span></code>, which only requires
+<a class="reference external" href="http://www.numpy.org">numpy</a>.</p>
+<section id="what-is-mesa-reader">
+<h3>What is MESA Reader?<a class="headerlink" href="#what-is-mesa-reader" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">mesa_reader</span></code> is a module consisting of three classes that you can use
+to read in the contents of a typical <code class="docutils literal notranslate"><span class="pre">LOGS</span></code> directory. These three
+classes are called <code class="docutils literal notranslate"><span class="pre">MesaData</span></code>, which corresponds to data in profiles
+or history files, <code class="docutils literal notranslate"><span class="pre">MesaProfileIndex</span></code>, which corresponds to data found
+in <code class="docutils literal notranslate"><span class="pre">profiles.index</span></code>, and <code class="docutils literal notranslate"><span class="pre">MesaLogDir</span></code>, which ties together data in
+profiles, the profile index, and the history file.
+Full documentation for how MESA Reader is installed and how to use the
+three classes can be found at the project’s <a class="reference external" href="https://github.com/wmwolf/py_mesa_reader">GitHub
+repository</a> and
+accompanying
+<a class="reference external" href="https://wmwolf.github.io/py_mesa_reader">documentation</a>.</p>
+</section>
+<section id="how-to-install-mesa-reader">
+<h3>How to install MESA Reader?<a class="headerlink" href="#how-to-install-mesa-reader" title="Link to this heading">#</a></h3>
+<p>The most stable release of <cite>mesa_reader</cite> can be installed
+through
+<a class="reference external" href="https://pip.pypa.io/en/stable">pip</a>
+via</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install mesa_reader</span>
+</pre></div>
+</div>
+</section>
+<section id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Link to this heading">#</a></h3>
+<p>Below, we show some simple example use cases of MESA Reader.</p>
+<section id="the-basics">
+<h4>The Basics<a class="headerlink" href="#the-basics" title="Link to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># import mesa_reader to make its classes accessible</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">mesa_reader</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mr</span>
+
+<span class="c1"># make a MesaData object from a history file</span>
+<span class="n">h</span> <span class="o">=</span> <span class="n">mr</span><span class="o">.</span><span class="n">MesaData</span><span class="p">(</span><span class="s1">&#39;LOGS/history.data&#39;</span><span class="p">)</span>
+
+<span class="c1"># extract the star_age column of data</span>
+<span class="n">ages</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="s1">&#39;star_age&#39;</span><span class="p">)</span>
+
+<span class="c1"># or do it more succinctly</span>
+<span class="n">ages</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">star_age</span>
+</pre></div>
+</div>
+<p>here, <code class="docutils literal notranslate"><span class="pre">ages</span></code> is now a numpy array that has the same values as are in
+our <code class="docutils literal notranslate"><span class="pre">LOGS/history.data</span></code> file under the <code class="docutils literal notranslate"><span class="pre">star_age</span></code> header.</p>
+<p>That’s how to set up a history file, but what about profiles? We can do
+the same thing if we know the exact file we want to load:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">mesa_reader</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mr</span>
+
+<span class="c1"># load the profile file into a MesaData instance</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">mr</span><span class="o">.</span><span class="n">MesaData</span><span class="p">(</span><span class="s1">&#39;LOGS/profile1.data&#39;</span><span class="p">)</span>
+
+<span class="c1"># access the temperature column of data</span>
+<span class="n">temperatures</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">**</span> <span class="n">p</span><span class="o">.</span><span class="n">logT</span>
+</pre></div>
+</div>
+<p>But often it’s frustrating to know exactly what profile file you want to
+load, so we can use the <code class="docutils literal notranslate"><span class="pre">MesaLogDir</span></code> class to simplify the process. It
+lets us load profiles by their associated model number, or most simply
+by just loading the last saved profile:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">mesa_reader</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mr</span>
+
+<span class="n">l</span> <span class="o">=</span> <span class="n">mr</span><span class="o">.</span><span class="n">MesaLogDir</span><span class="p">(</span><span class="s1">&#39;./LOGS&#39;</span><span class="p">)</span>
+
+<span class="c1"># load the profile associated with model number 100</span>
+<span class="n">p_100</span> <span class="o">=</span> <span class="n">l</span><span class="o">.</span><span class="n">profile_data</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="c1"># the same as the following</span>
+<span class="n">p_100</span> <span class="o">=</span> <span class="n">l</span><span class="o">.</span><span class="n">profile_data</span><span class="p">(</span><span class="n">model_number</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="c1"># load the profile with PROFILE number 12</span>
+<span class="n">p_12</span> <span class="o">=</span> <span class="n">l</span><span class="o">.</span><span class="n">profile_data</span><span class="p">(</span><span class="n">profile_number</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+<span class="c1"># load the last profile saved (largest model number)</span>
+<span class="n">p_last</span> <span class="o">=</span> <span class="n">l</span><span class="o">.</span><span class="n">profile_data</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>There are many ways to get at specific profile files and even to select
+profiles based on criteria in the history file. See the full
+<a class="reference external" href="https://wmwolf.github.io/py_mesa_reader">documentation</a> for more.</p>
+</section>
+<section id="an-hr-diagram">
+<h4>An HR Diagram<a class="headerlink" href="#an-hr-diagram" title="Link to this heading">#</a></h4>
+<p>Okay, how about making a plot with this data? MESA Reader has no
+implicit plotting capabilities, but it makes plotting in other
+environments dead simple. For this example, we’ll use matplotlib and
+assume that it is being used in pylab’s interactive mode:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># start pylab mode</span>
+<span class="o">%</span><span class="n">pylab</span>
+<span class="c1"># import mesa_reader</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">mesa_reader</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mr</span>
+
+<span class="c1"># load and plot data</span>
+<span class="n">h</span> <span class="o">=</span> <span class="n">mr</span><span class="o">.</span><span class="n">MesaData</span><span class="p">(</span><span class="s1">&#39;LOGS/history.data&#39;</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">h</span><span class="o">.</span><span class="n">log_Teff</span><span class="p">,</span> <span class="n">h</span><span class="o">.</span><span class="n">log_L</span><span class="p">)</span>
+
+<span class="c1"># set axis labels</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;log Effective Temperature&#39;</span><span class="p">)</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;log Luminosity&#39;</span><span class="p">)</span>
+
+<span class="c1"># invert the x-axis</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">invert_xaxis</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>For an example run simulating a massive pulsating star, this produces
+something like the following image:</p>
+<p><a class="reference external" href="hr_sample.pdf"><img alt="sample hr diagram plot" src="../_images/hr_sample.png" /></a></p>
+<p>Don’t worry if your plot has a different style than this, as that is
+just a function of your <code class="docutils literal notranslate"><span class="pre">matplotlibrc</span></code> file, which won’t be discussed
+here.</p>
+</section>
+</section>
+<section id="a-temperature-density-profile">
+<h3>A Temperature-Density Profile<a class="headerlink" href="#a-temperature-density-profile" title="Link to this heading">#</a></h3>
+<p>To plot a temperature-density profile, the process is very similar:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">pylab</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">mesa_reader</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mr</span>
+
+<span class="c1"># load entire LOG directory information</span>
+<span class="n">l</span> <span class="o">=</span> <span class="n">mr</span><span class="o">.</span><span class="n">MesaLogDir</span><span class="p">(</span><span class="s1">&#39;./LOGS&#39;</span><span class="p">)</span>
+<span class="c1"># grab the last profile</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">l</span><span class="o">.</span><span class="n">profile_data</span><span class="p">()</span>
+
+<span class="c1"># this works even if you only have logRho and logT!</span>
+<span class="n">loglog</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">Rho</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Density&quot;</span><span class="p">)</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Temperature&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>which produces something like the following image:</p>
+<p><a class="reference external" href="TRho_sample.pdf"><img alt="sample T-Rho profile" src="../_images/TRho_sample.png" /></a></p>
+</section>
+<section id="going-beyond">
+<h3>Going Beyond<a class="headerlink" href="#going-beyond" title="Link to this heading">#</a></h3>
+<p>MESA Reader is very general and is not just a tool to extract data
+columns for simple plotting (though that is perhaps the most obvious
+use). You can use it to filter through your data, selecting only periods
+or profiles that are match some criterion (say, profiles that were taken
+when the star was in a particular region of the HR diagram). More
+complicated plots can be made, like Kippenhahn diagrams, with a little
+bit more clever work.</p>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="running.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Running MESA</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="using_pgstar.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Using PGSTAR</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#output-files">Output files</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#history-data">history.data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#profiles-index">profiles.index</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#profile-data">profile.data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-output-quantities">Selecting output quantities</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-mesa-output">Plotting MESA output</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-mesa-reader">What is MESA Reader?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-install-mesa-reader">How to install MESA Reader?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#the-basics">The Basics</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#an-hr-diagram">An HR Diagram</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-temperature-density-profile">A Temperature-Density Profile</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#going-beyond">Going Beyond</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The MESA Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, The MESA Team.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

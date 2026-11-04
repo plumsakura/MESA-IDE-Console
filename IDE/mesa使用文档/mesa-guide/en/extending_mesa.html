@@ -1,0 +1,1418 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Extending MESA &#8212; MESA 26.4.1 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=3109fedd" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=aea46d76"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'using_mesa/extending_mesa';</script>
+    <link rel="canonical" href="https://docs.mesastar.org/en/26.4.1/using_mesa/extending_mesa.html" />
+    <link rel="icon" href="../_static/mesa-favicon.png"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Troubleshooting" href="troubleshooting.html" />
+    <link rel="prev" title="Building inlists" href="building_inlists.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <script async type="text/javascript" src="/_/static/javascript/readthedocs-addons.js"></script><meta name="readthedocs-project-slug" content="mesa-doc" /><meta name="readthedocs-version-slug" content="26.4.1" /><meta name="readthedocs-resolver-filename" content="/using_mesa/extending_mesa.html" /><meta name="readthedocs-http-status" content="200" /></head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/mesa-logo.png" class="logo__image only-light" alt="MESA 26.4.1 documentation - Home"/>
+    <script>document.write(`<img src="../_static/mesa-logo.png" class="logo__image only-dark" alt="MESA 26.4.1 documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://zenodo.org/records/18023257" title="Official Release Version" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-star fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Official Release Version</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="http://user.astro.wisc.edu/~townsend/static.php?ref=mesasdk" title="MESA SDK" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-gears fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">MESA SDK</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://lists.mesastar.org/mailman/listinfo/mesa-users" title="Mailing List" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Mailing List</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/MESAHub/mesa" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installing MESA</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../using_mesa.html">Using MESA</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="running.html">Running MESA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="output.html">MESA output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="using_pgstar.html">Using PGSTAR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building_inlists.html">Building inlists</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Extending MESA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="best_practices.html">Best practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="just_a_module.html">Just a Module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../modules.html">Modules</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../atm/overview.html">Overview of Atmosphere Choices</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../atm/t-tau.html">T(tau) Atmospheres</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../atm/table.html">Table Atmospheres</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../atm/irradiated.html">Irradiated Atmosphere</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../atm/paczynski.html">Paczynski Grey Atmosphere</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../atm/fixed-teff.html">Fixed Effective Temperature</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../atm/fixed-tsurf.html">Fixed Surface Temperature</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../atm/fixed-psurf.html">Fixed Surface Pressure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../atm/fixed-psurf-tsurf.html">Fixed Surface Pressure and Temperature</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../atm/mapping.html">Mapping from Old to New</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../atm/structure.html">Atmosphere Structure Building</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../auto_diff/overview.html">Overview of auto_diff module</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="simple">
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../auto_diff/example.html">Example of <code class="docutils literal notranslate"><span class="pre">auto_diff</span></code> in <code class="docutils literal notranslate"><span class="pre">run_star_extras</span></code></a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="simple">
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_diff/more_detail.html">More detail on the <code class="docutils literal notranslate"><span class="pre">auto_diff</span></code> module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../colors/overview.html">Overview of colors module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../colors/defaults.html"><code class="docutils literal notranslate"><span class="pre">colors</span></code> module controls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../eos/overview.html">Overview of eos module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../eos/defaults.html">eos module controls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../eos/interface.html">eos module Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../kap/overview.html">Overview of kap module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../kap/defaults.html">kap module controls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../kap/interface.html">kap module Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net/overview.html">Overview of net module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net/nets.html">Reaction Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rates/overview.html">Overview of rates module</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../turb/overview.html">Overview of turb module</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="simple">
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../reference.html">Reference and Defaults</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reference/star_job.html">star_job</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/controls.html">controls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/pgstar.html">pgstar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/binary_job.html">binary_job</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/binary_controls.html">binary_controls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/pgbinary.html">pgbinary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/astero_search.html">astero_search_controls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/astero_pgstar.html">astero_pgstar_controls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/eos.html">eos module controls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/kap.html">kap module controls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/colors.html"><code class="docutils literal notranslate"><span class="pre">colors</span></code> module controls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/hooks.html">hooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/env_vars.html">Environment Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/format.html">Format for MESA defaults files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/star_job_dev.html">star_job_dev</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/controls_dev.html">controls_dev</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../test_suite.html">Test Suite</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/1.3M_ms_high_Z.html">1.3M_ms_high_Z</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/1.4M_ms_op_mono.html">1.4M_ms_op_mono</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/1.5M_with_diffusion.html">1.5M_with_diffusion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/12M_pre_ms_to_core_collapse.html">12M_pre_ms_to_core_collapse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/15M_dynamo.html">15M_dynamo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/16M_conv_premix.html">16M_conv_premix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/16M_predictive_mix.html">16M_predictive_mix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/1M_pre_ms_to_wd.html">1M_pre_ms_to_wd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/1M_thermohaline.html">1M_thermohaline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/20M_pre_ms_to_core_collapse.html">20M_pre_ms_to_core_collapse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/20M_z2m2_high_rotation.html">20M_z2m2_high_rotation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/5M_cepheid_blue_loop.html">5M_cepheid_blue_loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/7M_prems_to_AGB.html">7M_prems_to_AGB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/R_CrB_star.html">R_CrB_star</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/T_tau_gradr.html">T_tau_gradr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/accreted_material_j.html">accreted_material_j</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/adjust_net.html">adjust_net</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/c13_pocket.html">c13_pocket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/carbon_kh.html">carbon_kh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/cburn_inward.html">cburn_inward</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/ccsn_IIp.html">ccsn_IIp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/check_pulse_atm.html">check_pulse_atm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/conductive_flame.html">conductive_flame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/conserve_angular_momentum.html">conserve_angular_momentum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/conv_core_cpm.html">conv_core_cpm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/custom_colors.html">Colors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/custom_rates.html">custom_rates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/diffusion_smoothness.html">diffusion_smoothness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/evolve_both_stars.html">evolve_both_stars</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/example_astero.html">example_astero</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/extended_convective_penetration.html">extended_convective_penetration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/fast_from_file.html">fast_from_file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/fast_newuoa.html">fast_newuoa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/fast_scan_grid.html">fast_scan_grid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/fast_simplex.html">fast_simplex</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/gyre_in_mesa_bcep.html">gyre_in_mesa_bcep</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/gyre_in_mesa_envelope.html">gyre_in_mesa_envelope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/gyre_in_mesa_ms.html">gyre_in_mesa_ms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/gyre_in_mesa_rsg.html">gyre_in_mesa_rsg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/gyre_in_mesa_spb.html">gyre_in_mesa_spb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/gyre_in_mesa_wd.html">gyre_in_mesa_wd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/hb_2M.html">hb_2M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/high_mass.html">high_mass</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/high_z.html">high_z</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/hot_cool_wind.html">hot_cool_wind</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/hse_riemann.html">hse_riemann</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/irradiated_planet.html">irradiated_planet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/jdot_gr_check.html">jdot_gr_check</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/jdot_ls_check.html">jdot_ls_check</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/jdot_ml_check.html">jdot_ml_check</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/low_z.html">low_z</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/magnetic_braking.html">magnetic_braking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/make_brown_dwarf.html">make_brown_dwarf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/make_co_wd.html">make_co_wd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/make_env.html">make_env</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/make_he_wd.html">make_he_wd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/make_metals.html">make_metals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/make_o_ne_wd.html">make_o_ne_wd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/make_planets.html">make_planets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/make_sdb.html">make_sdb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/make_zams.html">make_zams</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/make_zams_low_mass.html">make_zams_low_mass</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/make_zams_ultra_high_mass.html">make_zams_ultra_high_mass</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/ns_c.html">ns_c</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/ns_h.html">ns_h</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/ns_he.html">ns_he</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/other_physics_hooks.html">other_physics_hooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/pisn.html">pisn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/ppisn.html">ppisn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/radiative_levitation.html">radiative_levitation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/relax_composition_j_entropy.html">relax_composition_j_entropy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/rsp_BEP.html">rsp_BEP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/rsp_BLAP.html">rsp_BLAP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/rsp_Cepheid.html">rsp_Cepheid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/rsp_Delta_Scuti.html">rsp_Delta_Scuti</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/rsp_RR_Lyrae.html">rsp_RR_Lyrae</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/rsp_Type_II_Cepheid.html">rsp_Type_II_Cepheid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/rsp_check_2nd_crossing.html">rsp_check_2nd_crossing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/rsp_save_and_load_file.html">rsp_save_and_load_file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/semiconvection.html">semiconvection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/simplex_solar_calibration.html">simplex_solar_calibration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/split_burn_big_net.html">split_burn_big_net</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/star_plus_point_mass.html">star_plus_point_mass</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/star_plus_point_mass_explicit_mdot.html">star_plus_point_mass_explicit_mdot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/starspots.html">starspots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/surface_effects.html">surface_effects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/test_memory.html">test_memory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/timing.html">timing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/twin_studies.html">twin_studies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/tzo.html">TZO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/wd_acc_small_dm.html">wd_acc_small_dm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/wd_aic.html">wd_aic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/wd_c_core_ignition.html">wd_c_core_ignition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/wd_cool_0.6M.html">wd_cool_0.6M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/wd_diffusion.html">wd_diffusion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/wd_he_shell_ignition.html">wd_he_shell_ignition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/wd_nova_burst.html">wd_nova_burst</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/wd_stable_h_burn.html">wd_stable_h_burn</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About MESA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../summer_schools.html">MESA Summer Schools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_of_conduct.html">MESA Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../developing.html">Developing MESA</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../developing/collaboration.html">MESA Collaboration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing/new_developers.html">New developers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing/contributing.html">How to contribute</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing/documentation.html">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing/code_style.html">Coding style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing/tour.html">A Tour of MESA/star</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing/common_tasks.html">Common Tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing/debugging.html">Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing/linters.html">Linters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing/plotters.html">Plotters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing/profiling.html">Profiling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing/coverage.html">Coverage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing/test_suite.html">The Test Suite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing/infrastructure.html">Infrastructure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing/release.html">Release checklist</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../known_bugs.html">Known bugs</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../news.html">News archive</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../news/2021-02-18-tinsley-prize.html">2021 Tinsley Prize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2020-12-07-r15140.html">Release 15140</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2020-03-05-r12778.html">Release 12778</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2020-03-03-mesasdk.html">New MESA SDK Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2020-01-09-summerschool.html">Summer School 2020</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2019-09-10-r12115.html">Release 12115</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2019-08-30-mesasdk.html">New MESA SDK Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2019-05-03-r11701.html">Release 11701</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2019-05-03-mesasdk.html">New MESA SDK Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2019-03-15-r11554.html">Release 11554</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2019-03-15-mesasdk.html">New MESA SDK Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2019-03-04-r11532.html">Release 11532</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2019-03-04-instrument-paper-5.html">Instrument Paper 5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2019-01-11-summerschool.html">Summer School 2019</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2018-03-21-r10398.html">Release 10398</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2018-01-28-mesasdk.html">New MESA SDK Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2018-01-13-summerschool.html">Summer School 2018</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2017-10-23-r10108.html">Release 10108</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2017-10-23-instrument-paper-4.html">Instrument Paper 4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2017-09-21-mesasdk.html">New MESA SDK Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2017-09-12-r10000.html">Release 10000</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2017-09-01-three-updates.html">Docker, Python and Web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2017-08-14-new-mesa-users.html">New mesa-users list</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2017-08-02-mesasdk.html">New MESA SDK Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2017-05-31-r9793.html">Release 9793</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2017-04-08-mesa-marketplace.html">MESA Marketplace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2017-02-17-r9575.html">Release 9575</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2017-01-25-diffusion-updates.html">Diffusion Updates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2017-01-08-summerschool.html">Summer School 2017</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2016-08-10-old-docs.html">Documentation Archive</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2016-06-19-r8845.html">Release 8845</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2016-02-03-r8118.html">Release 8118</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2016-01-29-mesasdk.html">New MESA SDK Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2016-01-10-summerschool.html">Summer School 2016</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2015-09-27-instrument-paper-3.html">Instrument Paper 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2015-09-14-mesa-web-update.html">MESA-Web Updates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2015-09-08-mesasdk.html">New MESA SDK Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2015-09-03-updated-mesa-maps.html">Updated MESA Maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2015-08-27-summerschool-success.html">Summer School Success!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2015-06-03-r7624.html">Release 7624</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2015-06-01-mesa-web.html">Release of MESA-Web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2015-03-27-r7503.html">Release 7503</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2015-03-20-r7499.html">Release 7499</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2015-01-13-r7385.html">Release 7385</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2015-01-12-summerschool.html">Summer School 2015</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2014-12-12-mesasdk.html">New MESA SDK Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2014-10-22-r7184.html">Release 7184</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2014-08-25-pgstar-screencast.html">pgstar Screencast</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2014-07-20-r6794.html">Release 6794</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2014-07-15-mesasdk.html">New MESA SDK Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2014-07-14-installation-video.html">Installation Screencast</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2014-07-01-zipfiles.html">MESA Release Zip files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2014-06-08-r6596.html">Release 6596</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2014-03-24-r6208.html">Release 6208</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2014-03-21-website.html">New MESA Website</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2014-03-21-r6188.html">Release 6188</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2014-03-13-mesasdk.html">New MESA SDK Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2014-02-28-r6022.html">Release 6022</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2014-02-03-summerschool.html">Summer School 2014</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2014-01-05-r5819.html">Release 5819</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2013-12-23-mesasdk.html">New MESA SDK Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2013-11-15-r5596.html">Release 5596</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2013-10-10-r5527.html">Release 5527</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2013-09-20-r5456.html">Release 5456</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2013-08-19-r5329.html">Release 5329</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2013-07-27-r5271.html">Release 5271</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2013-07-18-r5232.html">Release 5232</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2013-06-16-r5118.html">Release 5118</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2013-04-30-r4942.html">Release 4942</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2013-04-11-r4906.html">Release 4906</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2013-03-20-r4849.html">Release 4849</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2013-03-01-sourceforge-migration.html">SourceForge Repository Change</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2013-02-06-r4798.html">Release 4798</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2012-12-29-r4740.html">Release 4740</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2012-12-19-r4723.html">Release 4723</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2012-10-26-r4631.html">Release 4631</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2012-08-29-r4442.html">Release 4442</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2012-08-25-r4411.html">Release 4411</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2012-08-01-r4298.html">Release 4298</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2012-07-18-r4219.html">Release 4219</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2012-06-09-r4088.html">Release 4088</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2012-04-28-r4028.html">Release 4028</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2012-02-27-r3918.html">Release 3918</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2012-01-10-r3851.html">Release 3851</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2011-12-14-r3794.html">Release 3794</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2011-11-06-r3723.html">Release 3723</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2011-10-31-r3709.html">Release 3709</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2011-09-22-r3635.html">Release 3635</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2011-06-14-r3372.html">Release 3372</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2011-05-20-r3290.html">Release 3290</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2011-04-29-r3251.html">Release 3251</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2011-03-20-r3107.html">Release 3107</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2011-03-03-r3075.html">Release 3075</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2011-02-05-r2987.html">Release 2987</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2011-01-20-r2941.html">Release 2941</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2011-01-01-r2891.html">Release 2891</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-12-23-r2871.html">Release 2871</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-11-19-r2808.html">Release 2808</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-11-09-r2790.html">Release 2790</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-10-23-r2745.html">Release 2745</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-10-03-r2699.html">Release 2699</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-09-16-r2664.html">Release 2664</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-08-26-r2637.html">Release 2637</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-08-19-r2618.html">Release 2618</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-08-06-r2602.html">Release 2602</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-07-31-r2578.html">Release 2578</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-07-26-r2557.html">Release 2557</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-07-19-r2533.html">Release 2533</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-06-05-r2404.html">Release 2404</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-05-15-r2341.html">Release 2341</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-04-13-r2258.html">Release 2258</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-03-13-r2208.html">Release 2208</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-01-26-r2078.html">Release 2078</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2009-11-26-r1943.html">Release 1943</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2009-10-06-r1822.html">Release 1822</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2009-09-21-r1728.html">Release 1728</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2009-09-11-r1691.html">Release 1691</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2009-08-09-r1585.html">Release 1585</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2009-07-18-r1489.html">Release 1489</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2009-06-28-r1396.html">Release 1396</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2009-06-07-r1296.html">Release 1296</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2009-05-12-r1249.html">Release 1249</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2009-03-16-r1145.html">Release 1145</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2009-02-27-r1118.html">Release 1118</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2009-01-25-r0971.html">Release 0971</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2008-11-11-r0776.html">Release 0776</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2007-01-23-r0001.html">Release 0001</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+  <div id="ethical-ad-placement"
+       class="flat"
+       data-ea-publisher="readthedocs"
+       data-ea-type="readthedocs-sidebar"
+       data-ea-manual="true">
+  </div>
+</div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/MESAHub/mesa" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/MESAHub/mesa/blob/main/docs/source/using_mesa/extending_mesa.rst?plain=1" target="_blank"
+   class="btn btn-sm btn-source-file-button dropdown-item"
+   title="Show source"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="btn__text-container">Show source</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/MESAHub/mesa/edit/main/docs/source/using_mesa/extending_mesa.rst" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/using_mesa/extending_mesa.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Extending MESA</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-steps">First Steps</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#activate-run-star-extras-f90">Activate <code class="docutils literal notranslate"><span class="pre">run_star_extras.f90</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#control-flow">Control flow</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-star-info-structure">The <code class="docutils literal notranslate"><span class="pre">star_info</span></code> structure</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#user-specified-inlist-controls">User-specified inlist controls</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#physical-constants">Physical constants</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-history-profile-output">Adding History &amp; Profile Output</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#choosing-when-to-output-history-or-profiles">Choosing when to output history or profiles</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-a-custom-stopping-condition">Adding a custom stopping condition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-the-other-hooks">Using the “other” hooks</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#writing-a-routine">Writing a routine</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#instruct-mesa-to-use-your-routine">Instruct MESA to use your routine</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="extending-mesa">
+<h1>Extending MESA<a class="headerlink" href="#extending-mesa" title="Link to this heading">#</a></h1>
+<p>Sometimes MESA’s many inlist options are not sufficient to tackle the
+problem you’re interested in solving. Extending MESA is relatively easy
+and painless to do. MESA is designed such that for most uses, one should
+not need to edit the core MESA code (i.e., the contents of $MESA_DIR).</p>
+<p>MESA provides a file <code class="docutils literal notranslate"><span class="pre">run_star_extras.f90</span></code> that lets you provide your
+own code to be executed during a calculation.  This lets you do things
+that you can’t do with inlists alone, like change parameters at each
+step using simple routines or override many of the default physics
+routines.</p>
+<p>Someone may have already written something similar to what you want.
+Check the list of <a class="reference external" href="https://mesastar.org/marketplace/add-ons/">user-submitted
+routines</a> to see.
+If you develop something new and useful, consider sharing it with the
+community.</p>
+<section id="first-steps">
+<h2>First Steps<a class="headerlink" href="#first-steps" title="Link to this heading">#</a></h2>
+<section id="activate-run-star-extras-f90">
+<h3>Activate <code class="docutils literal notranslate"><span class="pre">run_star_extras.f90</span></code><a class="headerlink" href="#activate-run-star-extras-f90" title="Link to this heading">#</a></h3>
+<p>The first step in making use of these capabilities is to activate them.
+In the MESA work directory you made as part of the tutorial, navigate to
+the src directory</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd tutorial/src</span>
+</pre></div>
+</div>
+<p>and open up <code class="docutils literal notranslate"><span class="pre">run_star_extras.f90</span></code> in your text editor of choice. The stock
+version of <code class="docutils literal notranslate"><span class="pre">run_star_extras.f90</span></code> is quite boring. It “includes” another file
+which holds the default set of routines.</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">include</span><span class="w"> </span><span class="s1">&#39;standard_run_star_extras.inc&#39;</span>
+</pre></div>
+</div>
+<p>The routines included in this file are the ones we will want to
+customize. Because we want these modifications to apply only to this
+working copy of MESA, and not to MESA as a whole, we want to replace
+this include statement with the contents of the included file.</p>
+<p>Delete the aforementioned include line and insert the contents of
+<code class="docutils literal notranslate"><span class="pre">$MESA_DIR/include/standard_run_star_extras.inc</span></code>.</p>
+<p>Before we make any changes, we should check that the code compiles.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd ..</span>
+<span class="go">./mk</span>
+</pre></div>
+</div>
+<p>If it doesn’t compile, make sure that you cleanly inserted the file and
+removed the include line.</p>
+</section>
+<section id="control-flow">
+<h3>Control flow<a class="headerlink" href="#control-flow" title="Link to this heading">#</a></h3>
+<p>The different <code class="docutils literal notranslate"><span class="pre">run_star_extras.f90</span></code> routines get called at different
+points during MESA execution.  Here is a flowchart summarizing this.</p>
+<p><a class="reference external" href="flowchart.pdf"><img alt="flowchart" src="../_images/flowchart.png" /></a></p>
+<p>The first routine <code class="docutils literal notranslate"><span class="pre">extras_controls</span></code> is particularly important.  It is
+the place where you tell MESA exactly which subroutines it should call
+for all of the rest of its hooks.</p>
+<p>The heart of MESA is the grey “take step” box, which contains all of
+the machinery by which MESA evaluates and solves the equations of
+stellar structure.</p>
+<p>When writing Fortran code for run_star_extras.f90, here are a few
+important and useful things to know.</p>
+</section>
+<section id="the-star-info-structure">
+<h3>The <code class="docutils literal notranslate"><span class="pre">star_info</span></code> structure<a class="headerlink" href="#the-star-info-structure" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">star_info</span></code> structure contains all the information about the star
+that is being evolved.  By convention, the variable name <code class="docutils literal notranslate"><span class="pre">s</span></code> is used
+throughout <code class="docutils literal notranslate"><span class="pre">run_star_extras.f90</span></code> to refer to this structure.  In
+Fortran, the percent (<code class="docutils literal notranslate"><span class="pre">%</span></code>) operator is used to access the components of
+the structure.  (So you can read <code class="docutils literal notranslate"><span class="pre">s%</span> <span class="pre">x</span> <span class="pre">=</span> <span class="pre">3</span></code> in the same way that you
+would read <code class="docutils literal notranslate"><span class="pre">s.x</span> <span class="pre">=</span> <span class="pre">3</span></code> in C.)</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">star_info</span></code> structure contains the stellar model itself (i.e.,
+zoning information, thermodynamic profile, composition profile).
+These components are listed in the files
+<code class="docutils literal notranslate"><span class="pre">$MESA_DIR/star_data/public/star_data_*.inc</span></code>, which are separated into a few
+different categories documented in the <code class="docutils literal notranslate"><span class="pre">star_data.inc</span></code> file.  In addition, <code class="docutils literal notranslate"><span class="pre">star_info</span></code>
+contains the values for the parameters that you set in your <code class="docutils literal notranslate"><span class="pre">controls</span></code>
+inlist (i.e., <code class="docutils literal notranslate"><span class="pre">initial_mass</span></code>, <code class="docutils literal notranslate"><span class="pre">xa_central_lower_limit</span></code>).  Recall that
+the list of controls is located in
+<code class="docutils literal notranslate"><span class="pre">$MESA_DIR/star/defaults/controls.defaults</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">s%</span> <span class="pre">xtra(1:30)</span></code> array is a place to write temporary data of type <code class="docutils literal notranslate"><span class="pre">real(dp)</span></code>
+which follow the logic of a time-step and so get carried over across restarts, restored in retries, etc.</p>
+</section>
+<section id="user-specified-inlist-controls">
+<h3>User-specified inlist controls<a class="headerlink" href="#user-specified-inlist-controls" title="Link to this heading">#</a></h3>
+<p>There is one set of controls that will prove useful time and time
+again when using <code class="docutils literal notranslate"><span class="pre">run_star_extras.f90</span></code> and that is <code class="docutils literal notranslate"><span class="pre">x_ctrl</span></code>,
+<code class="docutils literal notranslate"><span class="pre">x_integer_ctrl</span></code>, <code class="docutils literal notranslate"><span class="pre">x_logical_ctrl</span></code>, and <code class="docutils literal notranslate"><span class="pre">x_character_ctrl</span></code>.
+These are arrays (of length 100 by default) of double precision,
+integer, boolean, and character values.  You
+can set the elements in your inlists</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="p">&amp;</span><span class="n">controls</span>
+<span class="w">  </span><span class="n">x_ctrl</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3.14</span>
+<span class="w">  </span><span class="n">x_ctrl</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2.78</span>
+<span class="w">  </span><span class="n">x_integer_ctrl</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">42</span>
+<span class="w">  </span><span class="n">x_logical_ctrl</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.</span>
+<span class="w">  </span><span class="n">x_character_ctrl</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;hello world&#39;</span>
+<span class="o">/</span><span class="w"> </span><span class="c">! end of controls inlist</span>
+</pre></div>
+</div>
+<p>and access them later on as part of the star structure (i.e., <code class="docutils literal notranslate"><span class="pre">s%</span>
+<span class="pre">x_ctrl(1)</span></code>, etc.).  With these controls, you can specify parameters in
+your inlists instead of hard-coding them in <code class="docutils literal notranslate"><span class="pre">run_star_extras.f90</span></code>.</p>
+</section>
+<section id="physical-constants">
+<h3>Physical constants<a class="headerlink" href="#physical-constants" title="Link to this heading">#</a></h3>
+<p>MESA defines its constants in <code class="docutils literal notranslate"><span class="pre">$MESA_DIR/const/public/const_def.f90</span></code>.
+MESA uses cgs units unless otherwise noted.  The most common non-cgs
+units are solar units.  Since the <code class="docutils literal notranslate"><span class="pre">run_star_extras</span></code> module includes
+the line <code class="docutils literal notranslate"><span class="pre">use</span> <span class="pre">const_def</span></code>, you can already access these definitions.
+Using the built-in constants lets you make sure you’re using exactly
+the same definitions as MESA.</p>
+</section>
+</section>
+<section id="adding-history-profile-output">
+<h2>Adding History &amp; Profile Output<a class="headerlink" href="#adding-history-profile-output" title="Link to this heading">#</a></h2>
+<p>This section covers the routines that are part of the “write data” box
+in the above flowchart.  This contains the hooks</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">how_many_extra_history_columns</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">data_for_extra_history_columns</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">how_many_extra_profile_columns</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">data_for_extra_profile_columns</span></code></p></li>
+</ul>
+<p>Adding new data to the history and/or profile file is as easy as
+editing these functions.</p>
+<p>Perhaps we’re interested in quantifying how centrally concentrated the
+nuclear energy generation is. Let’s add columns to our history file
+that track the Lagrangian mass and physical radius interior to which
+90% of the nuclear energy generation takes place.</p>
+<p>Let’s indicate that we want to add two columns to our history file.</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="kt">integer </span><span class="k">function </span><span class="n">how_many_extra_history_columns</span><span class="p">(</span><span class="n">id</span><span class="p">)</span>
+<span class="w">   </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">id</span>
+<span class="w">   </span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">ierr</span>
+<span class="w">   </span><span class="k">type</span><span class="w"> </span><span class="p">(</span><span class="n">star_info</span><span class="p">),</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">s</span>
+<span class="w">   </span><span class="n">ierr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">   </span><span class="k">call </span><span class="n">star_ptr</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">ierr</span><span class="p">)</span>
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ierr</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">return</span>
+<span class="hll"><span class="k">   </span><span class="n">how_many_extra_history_columns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span>
+</span><span class="k">end function </span><span class="n">how_many_extra_history_columns</span>
+</pre></div>
+</div>
+<p>Now let’s calculate the information we want to output. This subroutine
+has access to the star_info pointer, so you can make use of any of the
+quantities defined in star/public/star_data_*.inc to compute additional
+information about the star. Here’s a subroutine that calculates what we
+want to know. There are a few “best practices” shown in this routine
+that are worth remembering, so read through the code and pay attention
+to the comments.</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">subroutine </span><span class="n">data_for_extra_history_columns</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">names</span><span class="p">,</span><span class="w"> </span><span class="n">vals</span><span class="p">,</span><span class="w"> </span><span class="n">ierr</span><span class="p">)</span>
+
+<span class="w">   </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">n</span>
+<span class="w">   </span><span class="kt">character</span><span class="w"> </span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="n">maxlen_history_column_name</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">names</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="w">   </span><span class="kt">real</span><span class="p">(</span><span class="n">dp</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">vals</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="w">   </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">ierr</span>
+<span class="w">   </span><span class="k">type</span><span class="w"> </span><span class="p">(</span><span class="n">star_info</span><span class="p">),</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">s</span>
+
+<span class="w">   </span><span class="kt">real</span><span class="p">(</span><span class="n">dp</span><span class="p">),</span><span class="w"> </span><span class="k">parameter</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">frac</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.90</span>
+<span class="w">   </span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">i</span>
+<span class="w">   </span><span class="kt">real</span><span class="p">(</span><span class="n">dp</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">edot</span><span class="p">,</span><span class="w"> </span><span class="n">edot_partial</span>
+
+<span class="w">   </span><span class="n">ierr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">   </span><span class="k">call </span><span class="n">star_ptr</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">ierr</span><span class="p">)</span>
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ierr</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">return</span>
+
+<span class="w">   </span><span class="c">! calculate the total nuclear energy release rate by integrating</span>
+<span class="w">   </span><span class="c">! the specific rate (eps_nuc) over the star.  using the dot_product</span>
+<span class="w">   </span><span class="c">! intrinsic is a common idiom for calculating integrated quantities.</span>
+<span class="w">   </span><span class="c">! note that one needs to explicitly limit the range of the arrays.</span>
+<span class="w">   </span><span class="c">! NEVER assume that the array size is the same as the number of zones.</span>
+<span class="w">   </span><span class="n">edot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">dot_product</span><span class="p">(</span><span class="n">s</span><span class="p">%</span><span class="w"> </span><span class="n">dm</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">s</span><span class="p">%</span><span class="w"> </span><span class="n">nz</span><span class="p">),</span><span class="w"> </span><span class="n">s</span><span class="p">%</span><span class="w"> </span><span class="n">eps_nuc</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">s</span><span class="p">%</span><span class="w"> </span><span class="n">nz</span><span class="p">))</span>
+
+<span class="w">   </span><span class="c">! the center of the star is at i = s% nz and the surface at i = 1 .</span>
+<span class="w">   </span><span class="c">! so go from the center outward until 90% of the integrated eps_nuc</span>
+<span class="w">   </span><span class="c">! is enclosed.  exit and then i will contain the desired cell index.</span>
+<span class="w">   </span><span class="n">edot_partial</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">   </span><span class="k">do </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">%</span><span class="w"> </span><span class="n">nz</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span>
+<span class="w">      </span><span class="n">edot_partial</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">edot_partial</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">s</span><span class="p">%</span><span class="w"> </span><span class="n">dm</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">s</span><span class="p">%</span><span class="w"> </span><span class="n">eps_nuc</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">edot_partial</span><span class="w"> </span><span class="p">.</span><span class="n">ge</span><span class="p">.</span><span class="w"> </span><span class="p">(</span><span class="n">frac</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">edot</span><span class="p">))</span><span class="w"> </span><span class="k">exit</span>
+<span class="k">   end do</span>
+
+<span class="w">   </span><span class="c">! note: do NOT add these names to history_columns.list</span>
+<span class="w">   </span><span class="c">! the history_columns.list is only for the built-in log column options.</span>
+<span class="w">   </span><span class="c">! it must not include the new column names you are adding here.</span>
+
+<span class="w">   </span><span class="c">! column 1</span>
+<span class="w">   </span><span class="n">names</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;m90&quot;</span>
+<span class="w">   </span><span class="n">vals</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">%</span><span class="w"> </span><span class="n">q</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">s</span><span class="p">%</span><span class="w"> </span><span class="n">star_mass</span><span class="w">  </span><span class="c">! in solar masses</span>
+
+<span class="w">   </span><span class="c">! column 2</span>
+<span class="w">   </span><span class="n">names</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;log_R90&quot;</span>
+<span class="w">   </span><span class="n">vals</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">log10</span><span class="p">(</span><span class="n">s</span><span class="p">%</span><span class="w"> </span><span class="n">R</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">rsun</span><span class="p">)</span><span class="w"> </span><span class="c">! in solar radii</span>
+
+<span class="w">   </span><span class="n">ierr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="k">end subroutine </span><span class="n">data_for_extra_history_columns</span>
+</pre></div>
+</div>
+<p>Adding new output to the profiles, proceeds by close analogy to the
+history, using the function <code class="docutils literal notranslate"><span class="pre">how_many_extra_profile_columns</span></code> and the
+subroutine <code class="docutils literal notranslate"><span class="pre">data_for_extra_profile_columns</span></code>.</p>
+<p>Here I’ve just uncommented the stock example.</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="kt">integer </span><span class="k">function </span><span class="n">how_many_extra_profile_columns</span><span class="p">(</span><span class="n">id</span><span class="p">)</span>
+<span class="w">   </span><span class="k">use </span><span class="n">star_def</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">star_info</span>
+<span class="w">   </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">id</span>
+<span class="w">   </span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">ierr</span>
+<span class="w">   </span><span class="k">type</span><span class="w"> </span><span class="p">(</span><span class="n">star_info</span><span class="p">),</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">s</span>
+<span class="w">   </span><span class="n">ierr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">   </span><span class="k">call </span><span class="n">star_ptr</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">ierr</span><span class="p">)</span>
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ierr</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">return</span>
+<span class="hll"><span class="k">   </span><span class="n">how_many_extra_profile_columns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
+</span><span class="k">end function </span><span class="n">how_many_extra_profile_columns</span>
+
+
+<span class="k">subroutine </span><span class="n">data_for_extra_profile_columns</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">nz</span><span class="p">,</span><span class="w"> </span><span class="n">names</span><span class="p">,</span><span class="w"> </span><span class="n">vals</span><span class="p">,</span><span class="w"> </span><span class="n">ierr</span><span class="p">)</span>
+<span class="w">   </span><span class="k">use </span><span class="n">star_def</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">star_info</span><span class="p">,</span><span class="w"> </span><span class="n">maxlen_profile_column_name</span>
+<span class="w">   </span><span class="k">use </span><span class="n">const_def</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">dp</span>
+<span class="w">   </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">nz</span>
+<span class="w">   </span><span class="kt">character</span><span class="w"> </span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="n">maxlen_profile_column_name</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">names</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="w">   </span><span class="kt">real</span><span class="p">(</span><span class="n">dp</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">vals</span><span class="p">(</span><span class="n">nz</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+<span class="w">   </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">ierr</span>
+<span class="w">   </span><span class="k">type</span><span class="w"> </span><span class="p">(</span><span class="n">star_info</span><span class="p">),</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">s</span>
+<span class="w">   </span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">k</span>
+<span class="w">   </span><span class="n">ierr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">   </span><span class="k">call </span><span class="n">star_ptr</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">ierr</span><span class="p">)</span>
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ierr</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">return</span>
+
+<span class="w">   </span><span class="c">! note: do NOT add the extra names to profile_columns.list</span>
+<span class="w">   </span><span class="c">! the profile_columns.list is only for the built-in profile column options.</span>
+<span class="w">   </span><span class="c">! it must not include the new column names you are adding here.</span>
+
+<span class="w">   </span><span class="c">! here is an example for adding a profile column</span>
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="k">stop</span><span class="w"> </span><span class="s1">&#39;data_for_extra_profile_columns&#39;</span>
+<span class="hll"><span class="w">   </span><span class="n">names</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;beta&#39;</span>
+</span><span class="hll"><span class="w">   </span><span class="k">do </span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">nz</span>
+</span><span class="hll"><span class="w">      </span><span class="n">vals</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">%</span><span class="w"> </span><span class="n">Pgas</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">/</span><span class="n">s</span><span class="p">%</span><span class="w"> </span><span class="n">Peos</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+</span><span class="hll"><span class="w">   </span><span class="k">end do</span>
+</span>
+<span class="k">end subroutine </span><span class="n">data_for_extra_profile_columns</span>
+</pre></div>
+</div>
+</section>
+<section id="choosing-when-to-output-history-or-profiles">
+<h2>Choosing when to output history or profiles<a class="headerlink" href="#choosing-when-to-output-history-or-profiles" title="Link to this heading">#</a></h2>
+<p>Frequently, you want to output a profile or update the history at a set
+of milestones along the way. This is especially true for the profiles,
+when it’s not possible (or even desirable) to save and store a profile
+every few steps.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">star_info</span></code> structure has a couple of flags –
+<code class="docutils literal notranslate"><span class="pre">need_to_save_profiles_now</span></code> and <code class="docutils literal notranslate"><span class="pre">need_to_update_history_now</span></code> – that let you
+tell MESA that it is time to output data.</p>
+<p>The place to set these is in the function extras_finish_step which will
+get called at the end of each step.</p>
+<p>For our massive star, let’s dump a profile at logarithmically-spaced
+intervals in central density. We will let the user specify the number of
+divisions per decade. We need to be careful, because the trajectory in
+rho-T space is not guaranteed to be monotonic.</p>
+<p>Here’s some code to do just that. Again, read through it as the comments
+discuss some useful MESA features.</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="c">! returns either keep_going or terminate.</span>
+<span class="c">! note: cannot request retry; extras_check_model can do that.</span>
+<span class="kt">integer </span><span class="k">function </span><span class="n">extras_finish_step</span><span class="p">(</span><span class="n">id</span><span class="p">)</span>
+
+<span class="w">   </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">id</span>
+<span class="w">   </span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">ierr</span>
+<span class="w">   </span><span class="k">type</span><span class="w"> </span><span class="p">(</span><span class="n">star_info</span><span class="p">),</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">s</span>
+
+<span class="w">   </span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">f</span>
+
+<span class="w">   </span><span class="n">ierr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">   </span><span class="k">call </span><span class="n">star_ptr</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">ierr</span><span class="p">)</span>
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ierr</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">return</span>
+
+<span class="k">   </span><span class="n">extras_finish_step</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">keep_going</span>
+
+<span class="w">   </span><span class="c">! MESA provides a number of variables that make it easy to get user input.</span>
+<span class="w">   </span><span class="c">! these are part of the star_info structure and are named</span>
+<span class="w">   </span><span class="c">! x_character_ctrl, x_integer_ctrl, x_logical_ctrl, and x_ctrl.</span>
+<span class="w">   </span><span class="c">! by default there are num_x_ctrls, which defaults to 100, of each.</span>
+<span class="w">   </span><span class="c">! they can be specified in the controls section of your inlist.</span>
+
+<span class="w">   </span><span class="n">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">%</span><span class="w"> </span><span class="n">x_integer_ctrl</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="w">   </span><span class="c">! MESA also provides a number of arrays that are useful for implementing</span>
+<span class="w">   </span><span class="c">! algorithms which require a state. if you use these variables</span>
+<span class="w">   </span><span class="c">! restarts and retries will work without doing anything special.</span>
+<span class="w">   </span><span class="c">! they are named xtra, ixtra, lxtra.</span>
+<span class="w">   </span><span class="c">! they are automatically versioned, that is if you set s% xtra(1), then</span>
+<span class="w">   </span><span class="c">! s% xtra_old(1) will contains the value of s% xtra(1) from the previous step.</span>
+
+<span class="w">   </span><span class="n">s</span><span class="p">%</span><span class="w"> </span><span class="n">xtra</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">%</span><span class="w"> </span><span class="n">log_center_density</span>
+
+<span class="w">   </span><span class="c">! this expression will evaluate to true if f times the log center density</span>
+<span class="w">   </span><span class="c">! has crossed an integer during the last step.  If f = 5, then we will get</span>
+<span class="w">   </span><span class="c">! output at log center density = {... 1.0, 1.2, 1.4, 1.6, 1.8, 2.0 ... }</span>
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="nb">floor</span><span class="p">(</span><span class="n">f</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">s</span><span class="p">%</span><span class="w"> </span><span class="n">xtra_old</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb">floor</span><span class="p">(</span><span class="n">f</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">s</span><span class="p">%</span><span class="w"> </span><span class="n">xtra</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span><span class="w"> </span><span class="p">.</span><span class="n">ne</span><span class="p">.</span><span class="w"> </span><span class="mi">0</span><span class="p">))</span><span class="w"> </span><span class="k">then</span>
+
+<span class="w">      </span><span class="c">! save a profile &amp; update the history</span>
+<span class="w">      </span><span class="n">s</span><span class="p">%</span><span class="w"> </span><span class="n">need_to_update_history_now</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.</span>
+<span class="w">      </span><span class="n">s</span><span class="p">%</span><span class="w"> </span><span class="n">need_to_save_profiles_now</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.</span>
+
+<span class="w">      </span><span class="c">! by default the priority is 1; you can change that if you&#39;d like</span>
+<span class="w">      </span><span class="c">! s% save_profiles_model_priority = ?</span>
+
+<span class="w">   </span><span class="k">endif</span>
+
+<span class="w">   </span><span class="c">! see extras_check_model for information about custom termination codes</span>
+<span class="w">   </span><span class="c">! by default, indicate where (in the code) MESA terminated</span>
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">extras_finish_step</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">terminate</span><span class="p">)</span><span class="w"> </span><span class="n">s</span><span class="p">%</span><span class="w"> </span><span class="n">termination_code</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t_extras_finish_step</span>
+
+<span class="k">end function </span><span class="n">extras_finish_step</span>
+</pre></div>
+</div>
+<p>To prevent you from filling up your disk, MESA will only save a
+limited number of profiles. The default is 100.  If you want to be
+sure the profiles that you’re triggering in <code class="docutils literal notranslate"><span class="pre">extras_finish_step</span></code> stick
+around – perhaps you’re making a movie – you should set
+<code class="docutils literal notranslate"><span class="pre">max_num_profile_models</span></code> to be greater that the number of profiles you
+anticipate generating. You might also want to crank up the priority
+which with they are saved by setting <code class="docutils literal notranslate"><span class="pre">save_profiles_model_priority</span></code> to
+be 10. This will prevent MESA from discarding them in lieu of other
+automatically saved profiles.</p>
+</section>
+<section id="adding-a-custom-stopping-condition">
+<h2>Adding a custom stopping condition<a class="headerlink" href="#adding-a-custom-stopping-condition" title="Link to this heading">#</a></h2>
+<p>MESA provides many ways to choose when to terminate a run. If your
+condition can be expressed as “stop when quantity X rises above or falls
+below some limit”, there’s a good chance that you can choose to stop
+simply by setting a few existing flags. Take a look at the “when to
+stop” section of star/defaults/controls.defaults, which starts around
+line 940.</p>
+<p>If your condition isn’t there or is a more complicated logical
+combination of conditions, then you will probably need to implement it
+yourself.</p>
+<p>The place to do this in the subroutine extras_check_model. (You can also
+use this routine to trigger retries.)</p>
+<p>Here’s a routine that stops when the star’s luminosity is dominated by
+neon burning.</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="c">! returns either keep_going, retry, or terminate.</span>
+<span class="kt">integer </span><span class="k">function </span><span class="n">extras_check_model</span><span class="p">(</span><span class="n">id</span><span class="p">)</span>
+
+<span class="w">  </span><span class="k">use </span><span class="n">chem_def</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">i_burn_ne</span><span class="p">,</span><span class="w"> </span><span class="n">category_name</span>
+
+<span class="w">  </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">id</span>
+<span class="w">  </span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">ierr</span>
+<span class="w">  </span><span class="k">type</span><span class="w"> </span><span class="p">(</span><span class="n">star_info</span><span class="p">),</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">s</span>
+
+<span class="w">  </span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">i_burn_max</span>
+
+<span class="w">  </span><span class="n">ierr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">  </span><span class="k">call </span><span class="n">star_ptr</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">ierr</span><span class="p">)</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ierr</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">return</span>
+
+<span class="k">  </span><span class="n">extras_check_model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">keep_going</span>
+
+<span class="w">  </span><span class="c">! if you want to check multiple conditions, it can be useful</span>
+<span class="w">  </span><span class="c">! to set a different termination code depending on which</span>
+<span class="w">  </span><span class="c">! condition was triggered.  MESA provides 9 customizable</span>
+<span class="w">  </span><span class="c">! termination codes, named t_xtra1 .. t_xtra9.  You can</span>
+<span class="w">  </span><span class="c">! customize the messages that will be printed upon exit by</span>
+<span class="w">  </span><span class="c">! setting the corresponding termination_code_str value.</span>
+<span class="w">  </span><span class="c">! termination_code_str(t_xtra1) = &#39;my termination condition&#39;</span>
+
+<span class="w">  </span><span class="c">! determine the category of maximum burning</span>
+<span class="w">  </span><span class="n">i_burn_max</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">maxloc</span><span class="p">(</span><span class="n">s</span><span class="p">%</span><span class="w"> </span><span class="n">L_by_category</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="w">  </span><span class="c">! stop if the luminosity is dominated by neon burning</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">i_burn_max</span><span class="w"> </span><span class="p">.</span><span class="n">eq</span><span class="p">.</span><span class="w"> </span><span class="n">i_burn_ne</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
+<span class="k">     </span><span class="n">extras_check_model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">terminate</span>
+<span class="w">     </span><span class="n">s</span><span class="p">%</span><span class="w"> </span><span class="n">termination_code</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t_xtra1</span>
+<span class="w">     </span><span class="n">termination_code_str</span><span class="p">(</span><span class="n">t_xtra1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;neon burning is dominant&#39;</span>
+<span class="w">     </span><span class="k">return</span>
+<span class="k">  end if</span>
+
+<span class="w">  </span><span class="c">! by default, indicate where (in the code) MESA terminated</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">extras_check_model</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">terminate</span><span class="p">)</span><span class="w"> </span><span class="n">s</span><span class="p">%</span><span class="w"> </span><span class="n">termination_code</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t_extras_check_model</span>
+
+<span class="k">end function </span><span class="n">extras_check_model</span>
+</pre></div>
+</div>
+</section>
+<section id="using-the-other-hooks">
+<span id="using-other"></span><h2>Using the “other” hooks<a class="headerlink" href="#using-the-other-hooks" title="Link to this heading">#</a></h2>
+<p>MESA provides a way to override most of the physics routines with no
+need to modify anything more than <code class="docutils literal notranslate"><span class="pre">run_star_extras</span></code>. There are two main
+steps needed to take advantage of this functionality. In the following
+example, we will add controls that allow us to control the various
+non-nuclear neutrino losses (e.g., plasmon, bremsstrahlung) in our
+massive star.</p>
+<section id="writing-a-routine">
+<h3>Writing a routine<a class="headerlink" href="#writing-a-routine" title="Link to this heading">#</a></h3>
+<p>Navigate to <code class="docutils literal notranslate"><span class="pre">$MESA_DIR/star/other</span></code>, where you will see a set of files
+named with the pattern <code class="docutils literal notranslate"><span class="pre">other_*.f90</span></code>.  The routines in this directory
+allow you to override/modify many physical and numerical aspects of
+MESA.</p>
+<p>Find the one corresponding to the aspect of MESA that you want to
+alter. Open it up and read through the contents. Many of the files
+have helpful comments and examples.</p>
+<p>Note that we do not want to directly edit these files. Instead we want
+to copy the template routines that these files provide into our working
+directory copy of run_star_extras.f90 and then further modify them there.
+The template routines are named either <code class="docutils literal notranslate"><span class="pre">null_other_*</span></code> or <code class="docutils literal notranslate"><span class="pre">default_other_*</span></code>.</p>
+<p>For our neutrino example, copy the following subroutine into
+run_star_extras.f90.</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="w">   </span><span class="k">subroutine </span><span class="n">null_other_neu</span><span class="p">(</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">      </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">log10_T</span><span class="p">,</span><span class="w"> </span><span class="n">Rho</span><span class="p">,</span><span class="w"> </span><span class="n">log10_Rho</span><span class="p">,</span><span class="w"> </span><span class="n">abar</span><span class="p">,</span><span class="w"> </span><span class="n">zbar</span><span class="p">,</span><span class="w"> </span><span class="n">log10_Tlim</span><span class="p">,</span><span class="w"> </span><span class="n">flags</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">      </span><span class="n">loss</span><span class="p">,</span><span class="w"> </span><span class="n">sources</span><span class="p">,</span><span class="w"> </span><span class="n">ierr</span><span class="p">)</span>
+<span class="w">      </span><span class="k">use </span><span class="n">star_def</span>
+<span class="w">      </span><span class="k">use </span><span class="n">neu_lib</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">neu_get</span>
+<span class="w">      </span><span class="k">use </span><span class="n">neu_def</span>
+<span class="w">      </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">id</span><span class="w">  </span><span class="c">! id for star</span>
+<span class="w">      </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">k</span><span class="w">  </span><span class="c">! cell number or 0 if not for a particular cell</span>
+<span class="w">      </span><span class="kt">real</span><span class="p">(</span><span class="n">dp</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">T</span><span class="w">  </span><span class="c">! temperature</span>
+<span class="w">      </span><span class="kt">real</span><span class="p">(</span><span class="n">dp</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">log10_T</span><span class="w">  </span><span class="c">! log10 of temperature</span>
+<span class="w">      </span><span class="kt">real</span><span class="p">(</span><span class="n">dp</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">Rho</span><span class="w">  </span><span class="c">! density</span>
+<span class="w">      </span><span class="kt">real</span><span class="p">(</span><span class="n">dp</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">log10_Rho</span><span class="w">  </span><span class="c">! log10 of density</span>
+<span class="w">      </span><span class="kt">real</span><span class="p">(</span><span class="n">dp</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">abar</span><span class="w">  </span><span class="c">! mean atomic weight</span>
+<span class="w">      </span><span class="kt">real</span><span class="p">(</span><span class="n">dp</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">zbar</span><span class="w">  </span><span class="c">! mean charge</span>
+<span class="w">      </span><span class="kt">real</span><span class="p">(</span><span class="n">dp</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">log10_Tlim</span>
+<span class="w">      </span><span class="kt">logical</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">flags</span><span class="p">(</span><span class="n">num_neu_types</span><span class="p">)</span><span class="w">  </span><span class="c">! true if should include the type of loss</span>
+<span class="w">      </span><span class="kt">real</span><span class="p">(</span><span class="n">dp</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">loss</span><span class="p">(</span><span class="n">num_neu_rvs</span><span class="p">)</span><span class="w">  </span><span class="c">! total from all sources</span>
+<span class="w">      </span><span class="kt">real</span><span class="p">(</span><span class="n">dp</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">sources</span><span class="p">(</span><span class="n">num_neu_types</span><span class="p">,</span><span class="w"> </span><span class="n">num_neu_rvs</span><span class="p">)</span>
+<span class="w">      </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">ierr</span>
+<span class="w">      </span><span class="k">call </span><span class="n">neu_get</span><span class="p">(</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">         </span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">log10_T</span><span class="p">,</span><span class="w"> </span><span class="n">Rho</span><span class="p">,</span><span class="w"> </span><span class="n">log10_Rho</span><span class="p">,</span><span class="w"> </span><span class="n">abar</span><span class="p">,</span><span class="w"> </span><span class="n">zbar</span><span class="p">,</span><span class="w"> </span><span class="n">log10_Tlim</span><span class="p">,</span><span class="w"> </span><span class="n">flags</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">         </span><span class="n">loss</span><span class="p">,</span><span class="w"> </span><span class="n">sources</span><span class="p">,</span><span class="w"> </span><span class="n">ierr</span><span class="p">)</span>
+<span class="w">   </span><span class="k">end subroutine </span><span class="n">null_other_neu</span>
+</pre></div>
+</div>
+<p>This template routine illustrates the interface and as is, it will
+produce exactly the same results as the default MESA routine. This is
+useful because the most frequent sorts of modifications that one wants
+to make are based on modifying information that MESA already calculates
+as opposed to a wholesale re-implementation of the physics routines.</p>
+<p>In this case, we want to add controls that will allow us to toggle
+whether specific kinds of non-nuclear neutrino losses are included.</p>
+<p>Let’s rename the subroutine and add the functionality that we want.</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">subroutine </span><span class="n">tutorial_other_neu</span><span class="p">(</span><span class="w">  </span><span class="p">&amp;</span>
+<span class="w">     </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">log10_T</span><span class="p">,</span><span class="w"> </span><span class="n">Rho</span><span class="p">,</span><span class="w"> </span><span class="n">log10_Rho</span><span class="p">,</span><span class="w"> </span><span class="n">abar</span><span class="p">,</span><span class="w"> </span><span class="n">zbar</span><span class="p">,</span><span class="w"> </span><span class="n">log10_Tlim</span><span class="p">,</span><span class="w"> </span><span class="n">flags</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">     </span><span class="n">loss</span><span class="p">,</span><span class="w"> </span><span class="n">sources</span><span class="p">,</span><span class="w"> </span><span class="n">ierr</span><span class="p">)</span>
+<span class="w">   </span><span class="k">use </span><span class="n">neu_lib</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">neu_get</span>
+<span class="w">   </span><span class="k">use </span><span class="n">neu_def</span>
+<span class="w">   </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="c">! id for star</span>
+<span class="w">   </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="c">! cell number or 0 if not for a particular cell</span>
+<span class="w">   </span><span class="kt">real</span><span class="p">(</span><span class="n">dp</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="c">! temperature</span>
+<span class="w">   </span><span class="kt">real</span><span class="p">(</span><span class="n">dp</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">log10_T</span><span class="w"> </span><span class="c">! log10 of temperature</span>
+<span class="w">   </span><span class="kt">real</span><span class="p">(</span><span class="n">dp</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">Rho</span><span class="w"> </span><span class="c">! density</span>
+<span class="w">   </span><span class="kt">real</span><span class="p">(</span><span class="n">dp</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">log10_Rho</span><span class="w"> </span><span class="c">! log10 of density</span>
+<span class="w">   </span><span class="kt">real</span><span class="p">(</span><span class="n">dp</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">abar</span><span class="w"> </span><span class="c">! mean atomic weight</span>
+<span class="w">   </span><span class="kt">real</span><span class="p">(</span><span class="n">dp</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">zbar</span><span class="w"> </span><span class="c">! mean charge</span>
+<span class="w">   </span><span class="kt">real</span><span class="p">(</span><span class="n">dp</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">log10_Tlim</span>
+<span class="w">   </span><span class="kt">logical</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">flags</span><span class="p">(</span><span class="n">num_neu_types</span><span class="p">)</span><span class="w"> </span><span class="c">! true if should include the type of loss</span>
+<span class="w">   </span><span class="kt">real</span><span class="p">(</span><span class="n">dp</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">loss</span><span class="p">(</span><span class="n">num_neu_rvs</span><span class="p">)</span><span class="w"> </span><span class="c">! total from all sources</span>
+<span class="w">   </span><span class="kt">real</span><span class="p">(</span><span class="n">dp</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">sources</span><span class="p">(</span><span class="n">num_neu_types</span><span class="p">,</span><span class="w"> </span><span class="n">num_neu_rvs</span><span class="p">)</span>
+<span class="w">   </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">ierr</span>
+
+<span class="w">   </span><span class="c">! before we can use controls associated with the star we need to get access</span>
+<span class="w">   </span><span class="k">type</span><span class="w"> </span><span class="p">(</span><span class="n">star_info</span><span class="p">),</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">s</span>
+<span class="w">   </span><span class="k">call </span><span class="n">star_ptr</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">ierr</span><span class="p">)</span>
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ierr</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="c">! OOPS</span>
+<span class="w">      </span><span class="k">return</span>
+<span class="k">   end if</span>
+
+<span class="w">   </span><span class="c">! separately control whether each type of neutrino loss is included</span>
+<span class="w">   </span><span class="n">flags</span><span class="p">(</span><span class="n">pair_neu_type</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">%</span><span class="w"> </span><span class="n">x_logical_ctrl</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="w">   </span><span class="n">flags</span><span class="p">(</span><span class="n">plas_neu_type</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">%</span><span class="w"> </span><span class="n">x_logical_ctrl</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="w">   </span><span class="n">flags</span><span class="p">(</span><span class="n">phot_neu_type</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">%</span><span class="w"> </span><span class="n">x_logical_ctrl</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="w">   </span><span class="n">flags</span><span class="p">(</span><span class="n">brem_neu_type</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">%</span><span class="w"> </span><span class="n">x_logical_ctrl</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="w">   </span><span class="n">flags</span><span class="p">(</span><span class="n">reco_neu_type</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">%</span><span class="w"> </span><span class="n">x_logical_ctrl</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="w">   </span><span class="c">! the is the normal routine that MESA provides</span>
+<span class="w">   </span><span class="k">call </span><span class="n">neu_get</span><span class="p">(</span><span class="w">  </span><span class="p">&amp;</span>
+<span class="w">       </span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">log10_T</span><span class="p">,</span><span class="w"> </span><span class="n">Rho</span><span class="p">,</span><span class="w"> </span><span class="n">log10_Rho</span><span class="p">,</span><span class="w"> </span><span class="n">abar</span><span class="p">,</span><span class="w"> </span><span class="n">zbar</span><span class="p">,</span><span class="w"> </span><span class="n">log10_Tlim</span><span class="p">,</span><span class="w"> </span><span class="n">flags</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">       </span><span class="n">loss</span><span class="p">,</span><span class="w"> </span><span class="n">sources</span><span class="p">,</span><span class="w"> </span><span class="n">ierr</span><span class="p">)</span>
+
+<span class="k">end subroutine </span><span class="n">tutorial_other_neu</span>
+</pre></div>
+</div>
+</section>
+<section id="instruct-mesa-to-use-your-routine">
+<h3>Instruct MESA to use your routine<a class="headerlink" href="#instruct-mesa-to-use-your-routine" title="Link to this heading">#</a></h3>
+<p>There are two things that you must do in order to have MESA execute your
+<code class="docutils literal notranslate"><span class="pre">other_*</span></code> routine. Failure to do both of these is the most common problem
+people encounter when using the <code class="docutils literal notranslate"><span class="pre">other_*</span></code> hooks.</p>
+<p>First, edit the controls section of your inlist to set the appropriate
+<code class="docutils literal notranslate"><span class="pre">use_other_*</span></code> flag to <code class="docutils literal notranslate"><span class="pre">.true.</span></code>. In our example, this means adding the line</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">use_other_neu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.</span>
+</pre></div>
+</div>
+<p>Second, edit the <code class="docutils literal notranslate"><span class="pre">extras_controls</span></code> routine in <code class="docutils literal notranslate"><span class="pre">run_star_extras.f90</span></code> to point
+the <code class="docutils literal notranslate"><span class="pre">other_neu</span></code> at the routine you want to be executed.</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">subroutine </span><span class="n">extras_controls</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">ierr</span><span class="p">)</span>
+<span class="w">   </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">id</span>
+<span class="w">   </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">ierr</span>
+<span class="w">   </span><span class="k">type</span><span class="w"> </span><span class="p">(</span><span class="n">star_info</span><span class="p">),</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">s</span>
+<span class="w">   </span><span class="n">ierr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">   </span><span class="k">call </span><span class="n">star_ptr</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">ierr</span><span class="p">)</span>
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ierr</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">return</span>
+
+<span class="w">   </span><span class="c">! this is the place to set any procedure pointers you want to change</span>
+<span class="w">   </span><span class="c">! e.g., other_wind, other_mixing, other_energy  (see star_data_procedures.inc)</span>
+<span class="hll"><span class="w">   </span><span class="n">s</span><span class="p">%</span><span class="w"> </span><span class="n">other_neu</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">tutorial_other_neu</span>
+</span>
+<span class="k">end subroutine </span><span class="n">extras_controls</span>
+</pre></div>
+</div>
+<p>Now, recompile your working directory</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./mk</span>
+</pre></div>
+</div>
+<p>and run MESA as usual.</p>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="building_inlists.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Building inlists</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="troubleshooting.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Troubleshooting</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-steps">First Steps</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#activate-run-star-extras-f90">Activate <code class="docutils literal notranslate"><span class="pre">run_star_extras.f90</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#control-flow">Control flow</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-star-info-structure">The <code class="docutils literal notranslate"><span class="pre">star_info</span></code> structure</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#user-specified-inlist-controls">User-specified inlist controls</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#physical-constants">Physical constants</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-history-profile-output">Adding History &amp; Profile Output</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#choosing-when-to-output-history-or-profiles">Choosing when to output history or profiles</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-a-custom-stopping-condition">Adding a custom stopping condition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-the-other-hooks">Using the “other” hooks</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#writing-a-routine">Writing a routine</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#instruct-mesa-to-use-your-routine">Instruct MESA to use your routine</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The MESA Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, The MESA Team.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

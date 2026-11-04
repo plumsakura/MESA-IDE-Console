@@ -1,0 +1,24 @@
+#!/bin/bash
+# 假 MESA 桩脚本，语义与真实 star/work/rn 相同：
+#   1) rm -f restart_photo  2) 跑 ./star（此处改为追加模型数据的桩）
+set -u
+here="$(cd "$(dirname "$0")" && pwd)"
+artifacts="${MESA_STUB_ARTIFACTS:-$(dirname "$here")/fake_mesa_build}"
+mkdir -p "$artifacts"
+{
+  printf 'rn'
+  for arg in "$@"; do printf ' %s' "$arg"; done
+  printf '\n'
+} >> "$artifacts/invocations.log"
+rm -f "$here/restart_photo"
+if [ "${MESA_STUB_FAIL:-}" = "rn" ]; then
+  echo "rn: 桩脚本按 MESA_STUB_FAIL 失败" >&2
+  exit 3
+fi
+if [ ! -x "$here/star" ]; then
+  echo "rn: ./star 不存在，请先运行 ./mk 编译" >&2
+  exit 4
+fi
+"$here/star"
+export FAKE_PROJECT_DIR="$here"
+exec "${FAKE_PYTHON:-python3}" "$here/append_model.py"

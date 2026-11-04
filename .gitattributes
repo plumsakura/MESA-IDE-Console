@@ -1,0 +1,16 @@
+# 统一按 LF 入库：项目面向 Linux / WSL2，shell 脚本在 CRLF 下会直接报错
+* text=auto eol=lf
+
+# 明确需要保持 LF 的脚本
+*.sh   text eol=lf
+*.py   text eol=lf
+
+# 二进制资源
+*.otf  binary
+*.ttf  binary
+*.db   binary
+*.png  binary
+*.jpg  binary
+*.zip  binary
+*.gz   binary
+*.run  binary

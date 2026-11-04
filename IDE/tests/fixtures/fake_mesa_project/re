@@ -1,0 +1,25 @@
+#!/bin/bash
+# 假 MESA 桩脚本，语义与真实 star/work/re 相同：
+#   快照名是**位置参数**（无参数=photos/ 里最近的一个），复制成 restart_photo。
+set -u
+here="$(cd "$(dirname "$0")" && pwd)"
+artifacts="${MESA_STUB_ARTIFACTS:-$(dirname "$here")/fake_mesa_build}"
+mkdir -p "$artifacts"
+{
+  printf 're'
+  for arg in "$@"; do printf ' %s' "$arg"; done
+  printf '\n'
+} >> "$artifacts/invocations.log"
+
+photo_directory="$here/photos"
+if [ "$#" -eq 0 ]; then
+  photo="$(ls -tp "$photo_directory" 2>/dev/null | grep -v / | head -1)"
+else
+  photo="$1"
+fi
+if [ -z "$photo" ] || [ ! -f "$photo_directory/$photo" ]; then
+  echo "specified photo ($photo) does not exist" >&2
+  exit 1
+fi
+echo "restart from $photo"
+cp "$photo_directory/$photo" "$here/restart_photo" || exit 1

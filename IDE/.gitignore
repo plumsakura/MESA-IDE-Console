@@ -1,0 +1,37 @@
+# ---- 虚拟环境（venv/.venv 自带 * 自忽略，这里再显式声明一次）----
+venv/
+.venv/
+env/
+ENV/
+
+# ---- Python 字节码与缓存 ----
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ---- 打包/构建产物 ----
+build/
+dist/
+*.egg-info/
+*.spec
+
+# ---- 运行时产物 ----
+*.log
+logs/
+logs_*.txt
+.DS_Store
+Thumbs.db
+
+# ---- 测试/工具缓存（run_tests.sh 的 MPLCONFIGDIR 落在这里）----
+.cache/
+
+# 注意：mesa_data.db 是应用必需数据（4147 个 MESA 参数 + FTS 索引），
+# 必须入库，禁止加入忽略列表。
+
+# ---- 安装器生成的 MESA 环境/日志（含本机绝对路径，不入库）----
+mesa_env.sh
+mesa_env.bat
+mesa_install.log

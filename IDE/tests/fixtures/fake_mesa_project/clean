@@ -1,0 +1,9 @@
+#!/bin/bash
+# 假 MESA 桩脚本，语义与真实 star/work/clean 相同：cd make; make clean
+set -u
+here="$(cd "$(dirname "$0")" && pwd)"
+artifacts="${MESA_STUB_ARTIFACTS:-$(dirname "$here")/fake_mesa_build}"
+mkdir -p "$artifacts"
+printf 'clean\n' >> "$artifacts/invocations.log"
+cd "$here/make" || exit 1
+make clean

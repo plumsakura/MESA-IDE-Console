@@ -1,0 +1,10 @@
+&pgstar
+    file_device = 'png'
+    pgstar_interval = 100
+    HR_win_flag = .true.
+/
+
+&pgstar_HR
+    HR_logT_min = 3.4d0
+    HR_logT_max = 3.9d0
+/

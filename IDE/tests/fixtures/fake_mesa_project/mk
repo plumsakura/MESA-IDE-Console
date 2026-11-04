@@ -1,0 +1,18 @@
+#!/bin/bash
+# 假 MESA 桩脚本，语义与真实 star/work/mk 相同：cd make; make
+# 额外记录调用并可制造失败（MESA_STUB_FAIL=mk）。绝不接触真实 MESA。
+set -u
+here="$(cd "$(dirname "$0")" && pwd)"
+artifacts="${MESA_STUB_ARTIFACTS:-$(dirname "$here")/fake_mesa_build}"
+mkdir -p "$artifacts"
+{
+  printf 'mk'
+  for arg in "$@"; do printf ' %s' "$arg"; done
+  printf '\n'
+} >> "$artifacts/invocations.log"
+if [ "${MESA_STUB_FAIL:-}" = "mk" ]; then
+  echo "mk: 桩脚本按 MESA_STUB_FAIL 失败" >&2
+  exit 7
+fi
+cd "$here/make" || exit 1
+make

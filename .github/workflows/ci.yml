@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    name: 语法检查与架构守卫
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 安装 Tk（架构守卫测试需要 import tkinter）
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq python3-tk
+
+      - name: Python 版本
+        run: python3 --version
+
+      - name: 语法检查（全部 Python 源文件可解析）
+        run: python3 -m compileall -q IDE
+
+      - name: Shell 脚本语法检查
+        run: |
+          set -e
+          for f in install.sh IDE/run_mesa.sh IDE/run_tests.sh packaging/install-all.sh; do
+            echo "== bash -n $f"
+            bash -n "$f"
+          done
+
+      - name: 架构守卫（分层 / 无重复定义 / 无 shell=True）
+        working-directory: IDE
+        run: python3 -m unittest tests.test_architecture_guards -v

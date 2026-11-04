@@ -1,0 +1,45 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*$py.class
+
+# ---- 虚拟环境 ----
+venv/
+.venv/
+env/
+ENV/
+
+# ---- 缓存 ----
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.cache/
+.mplconfig/
+
+# ---- 构建产物 ----
+build/
+dist/
+*.egg-info/
+*.spec
+
+# ---- 运行时产物 ----
+*.log
+logs/
+logs_*.txt
+mesa_env.sh
+mesa_env.bat
+mesa_install.log
+
+# ---- 系统 ----
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---- 外部归档（体积大，不入库；见 docs/DOWNLOADS.md）----
+mesa-*.zip
+mesasdk-*.tar.gz
+MESA-IDE-*.tar.gz
+MESA-IDE-*.run
+
+# 注意：IDE/mesa_data.db 是应用必需数据（4147 个 MESA 参数 + FTS 索引），
+# 必须入库，禁止加入忽略列表。

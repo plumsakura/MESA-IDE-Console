@@ -1,0 +1,1374 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Using PGSTAR &#8212; MESA 26.4.1 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=3109fedd" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=aea46d76"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'using_mesa/using_pgstar';</script>
+    <link rel="canonical" href="https://docs.mesastar.org/en/26.4.1/using_mesa/using_pgstar.html" />
+    <link rel="icon" href="../_static/mesa-favicon.png"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Building inlists" href="building_inlists.html" />
+    <link rel="prev" title="MESA output" href="output.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <script async type="text/javascript" src="/_/static/javascript/readthedocs-addons.js"></script><meta name="readthedocs-project-slug" content="mesa-doc" /><meta name="readthedocs-version-slug" content="26.4.1" /><meta name="readthedocs-resolver-filename" content="/using_mesa/using_pgstar.html" /><meta name="readthedocs-http-status" content="200" /></head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/mesa-logo.png" class="logo__image only-light" alt="MESA 26.4.1 documentation - Home"/>
+    <script>document.write(`<img src="../_static/mesa-logo.png" class="logo__image only-dark" alt="MESA 26.4.1 documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://zenodo.org/records/18023257" title="Official Release Version" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-star fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Official Release Version</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="http://user.astro.wisc.edu/~townsend/static.php?ref=mesasdk" title="MESA SDK" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-gears fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">MESA SDK</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://lists.mesastar.org/mailman/listinfo/mesa-users" title="Mailing List" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Mailing List</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/MESAHub/mesa" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installing MESA</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../using_mesa.html">Using MESA</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="running.html">Running MESA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="output.html">MESA output</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Using PGSTAR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building_inlists.html">Building inlists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="extending_mesa.html">Extending MESA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="best_practices.html">Best practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="just_a_module.html">Just a Module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../modules.html">Modules</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../atm/overview.html">Overview of Atmosphere Choices</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../atm/t-tau.html">T(tau) Atmospheres</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../atm/table.html">Table Atmospheres</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../atm/irradiated.html">Irradiated Atmosphere</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../atm/paczynski.html">Paczynski Grey Atmosphere</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../atm/fixed-teff.html">Fixed Effective Temperature</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../atm/fixed-tsurf.html">Fixed Surface Temperature</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../atm/fixed-psurf.html">Fixed Surface Pressure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../atm/fixed-psurf-tsurf.html">Fixed Surface Pressure and Temperature</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../atm/mapping.html">Mapping from Old to New</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../atm/structure.html">Atmosphere Structure Building</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../auto_diff/overview.html">Overview of auto_diff module</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="simple">
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../auto_diff/example.html">Example of <code class="docutils literal notranslate"><span class="pre">auto_diff</span></code> in <code class="docutils literal notranslate"><span class="pre">run_star_extras</span></code></a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="simple">
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_diff/more_detail.html">More detail on the <code class="docutils literal notranslate"><span class="pre">auto_diff</span></code> module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../colors/overview.html">Overview of colors module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../colors/defaults.html"><code class="docutils literal notranslate"><span class="pre">colors</span></code> module controls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../eos/overview.html">Overview of eos module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../eos/defaults.html">eos module controls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../eos/interface.html">eos module Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../kap/overview.html">Overview of kap module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../kap/defaults.html">kap module controls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../kap/interface.html">kap module Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net/overview.html">Overview of net module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net/nets.html">Reaction Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rates/overview.html">Overview of rates module</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../turb/overview.html">Overview of turb module</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="simple">
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../reference.html">Reference and Defaults</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reference/star_job.html">star_job</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/controls.html">controls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/pgstar.html">pgstar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/binary_job.html">binary_job</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/binary_controls.html">binary_controls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/pgbinary.html">pgbinary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/astero_search.html">astero_search_controls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/astero_pgstar.html">astero_pgstar_controls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/eos.html">eos module controls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/kap.html">kap module controls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/colors.html"><code class="docutils literal notranslate"><span class="pre">colors</span></code> module controls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/hooks.html">hooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/env_vars.html">Environment Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/format.html">Format for MESA defaults files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/star_job_dev.html">star_job_dev</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/controls_dev.html">controls_dev</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../test_suite.html">Test Suite</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/1.3M_ms_high_Z.html">1.3M_ms_high_Z</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/1.4M_ms_op_mono.html">1.4M_ms_op_mono</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/1.5M_with_diffusion.html">1.5M_with_diffusion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/12M_pre_ms_to_core_collapse.html">12M_pre_ms_to_core_collapse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/15M_dynamo.html">15M_dynamo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/16M_conv_premix.html">16M_conv_premix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/16M_predictive_mix.html">16M_predictive_mix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/1M_pre_ms_to_wd.html">1M_pre_ms_to_wd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/1M_thermohaline.html">1M_thermohaline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/20M_pre_ms_to_core_collapse.html">20M_pre_ms_to_core_collapse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/20M_z2m2_high_rotation.html">20M_z2m2_high_rotation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/5M_cepheid_blue_loop.html">5M_cepheid_blue_loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/7M_prems_to_AGB.html">7M_prems_to_AGB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/R_CrB_star.html">R_CrB_star</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/T_tau_gradr.html">T_tau_gradr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/accreted_material_j.html">accreted_material_j</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/adjust_net.html">adjust_net</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/c13_pocket.html">c13_pocket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/carbon_kh.html">carbon_kh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/cburn_inward.html">cburn_inward</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/ccsn_IIp.html">ccsn_IIp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/check_pulse_atm.html">check_pulse_atm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/conductive_flame.html">conductive_flame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/conserve_angular_momentum.html">conserve_angular_momentum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/conv_core_cpm.html">conv_core_cpm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/custom_colors.html">Colors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/custom_rates.html">custom_rates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/diffusion_smoothness.html">diffusion_smoothness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/evolve_both_stars.html">evolve_both_stars</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/example_astero.html">example_astero</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/extended_convective_penetration.html">extended_convective_penetration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/fast_from_file.html">fast_from_file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/fast_newuoa.html">fast_newuoa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/fast_scan_grid.html">fast_scan_grid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/fast_simplex.html">fast_simplex</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/gyre_in_mesa_bcep.html">gyre_in_mesa_bcep</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/gyre_in_mesa_envelope.html">gyre_in_mesa_envelope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/gyre_in_mesa_ms.html">gyre_in_mesa_ms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/gyre_in_mesa_rsg.html">gyre_in_mesa_rsg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/gyre_in_mesa_spb.html">gyre_in_mesa_spb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/gyre_in_mesa_wd.html">gyre_in_mesa_wd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/hb_2M.html">hb_2M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/high_mass.html">high_mass</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/high_z.html">high_z</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/hot_cool_wind.html">hot_cool_wind</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/hse_riemann.html">hse_riemann</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/irradiated_planet.html">irradiated_planet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/jdot_gr_check.html">jdot_gr_check</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/jdot_ls_check.html">jdot_ls_check</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/jdot_ml_check.html">jdot_ml_check</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/low_z.html">low_z</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/magnetic_braking.html">magnetic_braking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/make_brown_dwarf.html">make_brown_dwarf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/make_co_wd.html">make_co_wd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/make_env.html">make_env</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/make_he_wd.html">make_he_wd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/make_metals.html">make_metals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/make_o_ne_wd.html">make_o_ne_wd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/make_planets.html">make_planets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/make_sdb.html">make_sdb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/make_zams.html">make_zams</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/make_zams_low_mass.html">make_zams_low_mass</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/make_zams_ultra_high_mass.html">make_zams_ultra_high_mass</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/ns_c.html">ns_c</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/ns_h.html">ns_h</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/ns_he.html">ns_he</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/other_physics_hooks.html">other_physics_hooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/pisn.html">pisn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/ppisn.html">ppisn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/radiative_levitation.html">radiative_levitation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/relax_composition_j_entropy.html">relax_composition_j_entropy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/rsp_BEP.html">rsp_BEP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/rsp_BLAP.html">rsp_BLAP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/rsp_Cepheid.html">rsp_Cepheid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/rsp_Delta_Scuti.html">rsp_Delta_Scuti</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/rsp_RR_Lyrae.html">rsp_RR_Lyrae</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/rsp_Type_II_Cepheid.html">rsp_Type_II_Cepheid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/rsp_check_2nd_crossing.html">rsp_check_2nd_crossing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/rsp_save_and_load_file.html">rsp_save_and_load_file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/semiconvection.html">semiconvection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/simplex_solar_calibration.html">simplex_solar_calibration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/split_burn_big_net.html">split_burn_big_net</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/star_plus_point_mass.html">star_plus_point_mass</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/star_plus_point_mass_explicit_mdot.html">star_plus_point_mass_explicit_mdot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/starspots.html">starspots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/surface_effects.html">surface_effects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/test_memory.html">test_memory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/timing.html">timing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/twin_studies.html">twin_studies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/tzo.html">TZO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/wd_acc_small_dm.html">wd_acc_small_dm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/wd_aic.html">wd_aic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/wd_c_core_ignition.html">wd_c_core_ignition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/wd_cool_0.6M.html">wd_cool_0.6M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/wd_diffusion.html">wd_diffusion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/wd_he_shell_ignition.html">wd_he_shell_ignition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/wd_nova_burst.html">wd_nova_burst</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_suite/wd_stable_h_burn.html">wd_stable_h_burn</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About MESA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../summer_schools.html">MESA Summer Schools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_of_conduct.html">MESA Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../developing.html">Developing MESA</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../developing/collaboration.html">MESA Collaboration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing/new_developers.html">New developers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing/contributing.html">How to contribute</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing/documentation.html">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing/code_style.html">Coding style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing/tour.html">A Tour of MESA/star</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing/common_tasks.html">Common Tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing/debugging.html">Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing/linters.html">Linters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing/plotters.html">Plotters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing/profiling.html">Profiling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing/coverage.html">Coverage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing/test_suite.html">The Test Suite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing/infrastructure.html">Infrastructure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing/release.html">Release checklist</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../known_bugs.html">Known bugs</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../news.html">News archive</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../news/2021-02-18-tinsley-prize.html">2021 Tinsley Prize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2020-12-07-r15140.html">Release 15140</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2020-03-05-r12778.html">Release 12778</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2020-03-03-mesasdk.html">New MESA SDK Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2020-01-09-summerschool.html">Summer School 2020</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2019-09-10-r12115.html">Release 12115</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2019-08-30-mesasdk.html">New MESA SDK Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2019-05-03-r11701.html">Release 11701</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2019-05-03-mesasdk.html">New MESA SDK Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2019-03-15-r11554.html">Release 11554</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2019-03-15-mesasdk.html">New MESA SDK Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2019-03-04-r11532.html">Release 11532</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2019-03-04-instrument-paper-5.html">Instrument Paper 5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2019-01-11-summerschool.html">Summer School 2019</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2018-03-21-r10398.html">Release 10398</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2018-01-28-mesasdk.html">New MESA SDK Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2018-01-13-summerschool.html">Summer School 2018</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2017-10-23-r10108.html">Release 10108</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2017-10-23-instrument-paper-4.html">Instrument Paper 4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2017-09-21-mesasdk.html">New MESA SDK Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2017-09-12-r10000.html">Release 10000</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2017-09-01-three-updates.html">Docker, Python and Web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2017-08-14-new-mesa-users.html">New mesa-users list</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2017-08-02-mesasdk.html">New MESA SDK Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2017-05-31-r9793.html">Release 9793</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2017-04-08-mesa-marketplace.html">MESA Marketplace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2017-02-17-r9575.html">Release 9575</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2017-01-25-diffusion-updates.html">Diffusion Updates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2017-01-08-summerschool.html">Summer School 2017</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2016-08-10-old-docs.html">Documentation Archive</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2016-06-19-r8845.html">Release 8845</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2016-02-03-r8118.html">Release 8118</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2016-01-29-mesasdk.html">New MESA SDK Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2016-01-10-summerschool.html">Summer School 2016</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2015-09-27-instrument-paper-3.html">Instrument Paper 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2015-09-14-mesa-web-update.html">MESA-Web Updates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2015-09-08-mesasdk.html">New MESA SDK Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2015-09-03-updated-mesa-maps.html">Updated MESA Maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2015-08-27-summerschool-success.html">Summer School Success!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2015-06-03-r7624.html">Release 7624</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2015-06-01-mesa-web.html">Release of MESA-Web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2015-03-27-r7503.html">Release 7503</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2015-03-20-r7499.html">Release 7499</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2015-01-13-r7385.html">Release 7385</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2015-01-12-summerschool.html">Summer School 2015</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2014-12-12-mesasdk.html">New MESA SDK Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2014-10-22-r7184.html">Release 7184</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2014-08-25-pgstar-screencast.html">pgstar Screencast</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2014-07-20-r6794.html">Release 6794</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2014-07-15-mesasdk.html">New MESA SDK Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2014-07-14-installation-video.html">Installation Screencast</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2014-07-01-zipfiles.html">MESA Release Zip files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2014-06-08-r6596.html">Release 6596</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2014-03-24-r6208.html">Release 6208</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2014-03-21-website.html">New MESA Website</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2014-03-21-r6188.html">Release 6188</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2014-03-13-mesasdk.html">New MESA SDK Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2014-02-28-r6022.html">Release 6022</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2014-02-03-summerschool.html">Summer School 2014</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2014-01-05-r5819.html">Release 5819</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2013-12-23-mesasdk.html">New MESA SDK Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2013-11-15-r5596.html">Release 5596</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2013-10-10-r5527.html">Release 5527</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2013-09-20-r5456.html">Release 5456</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2013-08-19-r5329.html">Release 5329</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2013-07-27-r5271.html">Release 5271</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2013-07-18-r5232.html">Release 5232</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2013-06-16-r5118.html">Release 5118</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2013-04-30-r4942.html">Release 4942</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2013-04-11-r4906.html">Release 4906</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2013-03-20-r4849.html">Release 4849</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2013-03-01-sourceforge-migration.html">SourceForge Repository Change</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2013-02-06-r4798.html">Release 4798</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2012-12-29-r4740.html">Release 4740</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2012-12-19-r4723.html">Release 4723</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2012-10-26-r4631.html">Release 4631</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2012-08-29-r4442.html">Release 4442</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2012-08-25-r4411.html">Release 4411</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2012-08-01-r4298.html">Release 4298</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2012-07-18-r4219.html">Release 4219</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2012-06-09-r4088.html">Release 4088</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2012-04-28-r4028.html">Release 4028</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2012-02-27-r3918.html">Release 3918</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2012-01-10-r3851.html">Release 3851</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2011-12-14-r3794.html">Release 3794</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2011-11-06-r3723.html">Release 3723</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2011-10-31-r3709.html">Release 3709</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2011-09-22-r3635.html">Release 3635</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2011-06-14-r3372.html">Release 3372</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2011-05-20-r3290.html">Release 3290</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2011-04-29-r3251.html">Release 3251</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2011-03-20-r3107.html">Release 3107</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2011-03-03-r3075.html">Release 3075</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2011-02-05-r2987.html">Release 2987</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2011-01-20-r2941.html">Release 2941</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2011-01-01-r2891.html">Release 2891</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-12-23-r2871.html">Release 2871</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-11-19-r2808.html">Release 2808</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-11-09-r2790.html">Release 2790</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-10-23-r2745.html">Release 2745</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-10-03-r2699.html">Release 2699</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-09-16-r2664.html">Release 2664</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-08-26-r2637.html">Release 2637</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-08-19-r2618.html">Release 2618</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-08-06-r2602.html">Release 2602</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-07-31-r2578.html">Release 2578</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-07-26-r2557.html">Release 2557</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-07-19-r2533.html">Release 2533</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-06-05-r2404.html">Release 2404</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-05-15-r2341.html">Release 2341</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-04-13-r2258.html">Release 2258</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-03-13-r2208.html">Release 2208</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2010-01-26-r2078.html">Release 2078</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2009-11-26-r1943.html">Release 1943</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2009-10-06-r1822.html">Release 1822</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2009-09-21-r1728.html">Release 1728</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2009-09-11-r1691.html">Release 1691</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2009-08-09-r1585.html">Release 1585</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2009-07-18-r1489.html">Release 1489</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2009-06-28-r1396.html">Release 1396</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2009-06-07-r1296.html">Release 1296</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2009-05-12-r1249.html">Release 1249</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2009-03-16-r1145.html">Release 1145</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2009-02-27-r1118.html">Release 1118</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2009-01-25-r0971.html">Release 0971</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2008-11-11-r0776.html">Release 0776</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../news/2007-01-23-r0001.html">Release 0001</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+  <div id="ethical-ad-placement"
+       class="flat"
+       data-ea-publisher="readthedocs"
+       data-ea-type="readthedocs-sidebar"
+       data-ea-manual="true">
+  </div>
+</div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/MESAHub/mesa" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/MESAHub/mesa/blob/main/docs/source/using_mesa/using_pgstar.rst?plain=1" target="_blank"
+   class="btn btn-sm btn-source-file-button dropdown-item"
+   title="Show source"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="btn__text-container">Show source</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/MESAHub/mesa/edit/main/docs/source/using_mesa/using_pgstar.rst" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/using_mesa/using_pgstar.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Using PGSTAR</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-pgstar">Overview of PGSTAR</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#profile-plots-and-history-plots">Profile Plots and History Plots</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#single-panel-multiple-panel-and-grid-plots">Single Panel, Multiple Panel, and Grid Plots</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#general-controls">General Controls</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-inventory-of-plots">The Inventory of Plots</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#single-panel-profile-plots">single panel profile plots</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#single-panel-history-plots">single panel history plots</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#profile-panel-plots-profile-panels1-to-profile-panels9">profile panel plots: <code class="docutils literal notranslate"><span class="pre">Profile_Panels1</span></code> to <code class="docutils literal notranslate"><span class="pre">Profile_Panels9</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#history-track-plots-history-track1-to-history-track9">history track plots: <code class="docutils literal notranslate"><span class="pre">History_Track1</span></code> to <code class="docutils literal notranslate"><span class="pre">History_Track9</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#history-panel-plots-history-panels1-to-history-panels9">history panel plots: <code class="docutils literal notranslate"><span class="pre">History_Panels1</span></code> to <code class="docutils literal notranslate"><span class="pre">History_Panels9</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#text-summary-plots-text-summary1-to-text-summary9">text summary plots: <code class="docutils literal notranslate"><span class="pre">Text_Summary1</span></code> to <code class="docutils literal notranslate"><span class="pre">Text_Summary9</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grids-grid1-to-grid9">grids: <code class="docutils literal notranslate"><span class="pre">Grid1</span></code> to <code class="docutils literal notranslate"><span class="pre">Grid9</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-tutorial">Hands-on Tutorial</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="using-pgstar">
+<h1>Using PGSTAR<a class="headerlink" href="#using-pgstar" title="Link to this heading">#</a></h1>
+<p>Watching lots of numbers fly by in the terminal window can provide some
+idea of how a run is going, but it is much better (and much more fun) to
+have windows with plots that change at each step. PGstar is built on
+PGPLOT for creating plots using Xwindows for on-screen plots and PNG for
+frames of movies to animate those plots.</p>
+<p>Devote lots of time watching models evolve. It’s a fun way to learn!</p>
+<p>If you’re using the MESA SDK, you should have everything you need to use
+PGSTAR. Otherwise, you need to have installed PGPLOT, Xwindows, and a
+few libraries that they need. See the <code class="docutils literal notranslate"><span class="pre">makefile_header_non_mesasdk</span></code> in
+<code class="docutils literal notranslate"><span class="pre">$MESA_DIR/utils</span></code> for details. You’ll find pgplot.tar.bz2 in
+<code class="docutils literal notranslate"><span class="pre">$MESA_DIR/scripts</span></code> in case you need to install PGPLOT (thanks to Tim
+Pearson of CalTech for creating PGPLOT and giving us permission to
+distribute it with MESA).</p>
+<section id="overview-of-pgstar">
+<h2>Overview of PGSTAR<a class="headerlink" href="#overview-of-pgstar" title="Link to this heading">#</a></h2>
+<p>PGSTAR has an enormous number of features and controls. Here is a brief
+overview.</p>
+<section id="profile-plots-and-history-plots">
+<h3>Profile Plots and History Plots<a class="headerlink" href="#profile-plots-and-history-plots" title="Link to this heading">#</a></h3>
+<p>Profile plots show information about current model. You can display
+anything that can be included in a profile_columns.list. You are not
+limited to the items in your current profile_columns.list.</p>
+<p>History plots show information specified by your current
+history_columns.list. If it is in your history_columns.list, you can
+show it in a history plot. The name for a history item must be the same
+as one of the column headings in your current LOGS/history.data - these
+are the same as the entries in the history_columns.list but with any
+spaces replaced by <code class="docutils literal notranslate"><span class="pre">_</span></code>. For example, <code class="docutils literal notranslate"><span class="pre">center</span> <span class="pre">h1</span></code> in
+history_columns.list changes to <code class="docutils literal notranslate"><span class="pre">center_h1</span></code> as a column heading in
+LOGS/history.data, so you should use <code class="docutils literal notranslate"><span class="pre">center_h1</span></code> as the name in the
+plot.</p>
+</section>
+<section id="single-panel-multiple-panel-and-grid-plots">
+<h3>Single Panel, Multiple Panel, and Grid Plots<a class="headerlink" href="#single-panel-multiple-panel-and-grid-plots" title="Link to this heading">#</a></h3>
+<p>Single panel plots contain one graph, optionally with a 2nd Y axis.
+Multiple panel plots have a stack of several graphs using the same X
+axis. Grid plots combine several other plots in a user-specified grid
+layout.</p>
+</section>
+<section id="general-controls">
+<h3>General Controls<a class="headerlink" href="#general-controls" title="Link to this heading">#</a></h3>
+<p>You can change the width, aspect ratio, margins, text scale, title, and
+axis limits of any plot by editing your <code class="docutils literal notranslate"><span class="pre">pgstar_controls</span></code> inlist file. The
+file is reread at each timestep, so you can make changes while the
+evolution is running. For user-specified plots, you can also change any
+of the specs on-the-fly including what is plotted for the axes and the
+number of panels or grid layout. You can change the <code class="docutils literal notranslate"><span class="pre">win_flag</span></code> from
+<code class="docutils literal notranslate"><span class="pre">.false.</span></code> to <code class="docutils literal notranslate"><span class="pre">.true.</span></code> on-the-fly to create a new window. Changing the
+win_flag from <code class="docutils literal notranslate"><span class="pre">.true.</span></code> to <code class="docutils literal notranslate"><span class="pre">.false.</span></code> removes the window, but because of
+quirks of pgplot and/or Xwindows, it will pause and ask you to hit a
+return.</p>
+<p>You can have the code pause at each step by setting <code class="docutils literal notranslate"><span class="pre">pause</span> <span class="pre">=</span> <span class="pre">.true.</span></code> It
+will pause every nth step if you set <code class="docutils literal notranslate"><span class="pre">pause_interval</span> <span class="pre">=</span> <span class="pre">n</span></code>.</p>
+<p>You can slow it down by setting <code class="docutils literal notranslate"><span class="pre">pgstar_sleep</span></code> to the minimum number of
+seconds to allow between plot updates.</p>
+<p>It will update the windows every nth step if you set <code class="docutils literal notranslate"><span class="pre">pgstar_interval</span> <span class="pre">=</span> <span class="pre">n</span></code>.</p>
+<p>To save the plot as a png file, set the <code class="docutils literal notranslate"><span class="pre">file_flag</span></code> for the window to
+<code class="docutils literal notranslate"><span class="pre">.true.</span></code> You can specify a directory and prefix for the files, as well as
+the frequency of writing (every nth step) and the size of the plot for
+the file. You can even get files written when the star moves a given
+distance on the HR diagram!</p>
+<p>To switch from black background to white change the <code class="docutils literal notranslate"><span class="pre">white_on_black_flag</span></code>.
+There are separate flags for windows and files.</p>
+</section>
+</section>
+<section id="the-inventory-of-plots">
+<h2>The Inventory of Plots<a class="headerlink" href="#the-inventory-of-plots" title="Link to this heading">#</a></h2>
+<section id="single-panel-profile-plots">
+<h3>single panel profile plots<a class="headerlink" href="#single-panel-profile-plots" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">TRho_Profile</span></code> - current model in T-Rho plane</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Summary_Profile</span></code> - various profile properties</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Summary_Burn</span></code> - current model T, rho, eps burning, and eps neutrinos</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Abundance</span></code> - current model abundance profiles</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Power</span></code> - current model nuclear power profiles</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Mixing</span></code> - current model mixing diffusion coefficients</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Dynamo</span></code> - current model dynamo magnetic field info</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Mode_Prop</span></code> - asteroseimology mode propagation diagram</p></li>
+</ul>
+</section>
+<section id="single-panel-history-plots">
+<h3>single panel history plots<a class="headerlink" href="#single-panel-history-plots" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Kipp</span></code> - “Kippenhann” history of mixing, burning, and more</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Summary_History</span></code> - various history properties</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TRho</span></code> - history of central temperature vs. density</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">HR</span></code> - history of log_L vs. log_Teff</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">logg_Teff</span></code> - history of logg vs. Teff</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">logg_logT</span></code> - history of logg vs. log_Teff</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dPg_dnu</span></code> - delta_Pg vs. delta_nu (for asteroseismology)</p></li>
+</ul>
+<p>Keep in mind that if it isn’t in your current history list, then it
+won’t be available for plotting in PGSTAR history plots. For example, if
+your Kipp plots doesn’t show burning and mixing regions, then add them
+to your history_columns.list - e.g., add these:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">mixing_regions</span><span class="w"> </span><span class="mi">40</span>
+<span class="n">burning_regions</span><span class="w"> </span><span class="mi">80</span>
+</pre></div>
+</div>
+</section>
+<section id="profile-panel-plots-profile-panels1-to-profile-panels9">
+<h3>profile panel plots: <code class="docutils literal notranslate"><span class="pre">Profile_Panels1</span></code> to <code class="docutils literal notranslate"><span class="pre">Profile_Panels9</span></code><a class="headerlink" href="#profile-panel-plots-profile-panels1-to-profile-panels9" title="Link to this heading">#</a></h3>
+<p>You select axes from anything allowed in a profile_columns.list. In
+addition, a panel can be any of these pre-defined plots: Abundance,
+Power, Mixing, Dynamo, Mode_prop, or Summary_Profile.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Profile_Panels1</span></code> - default has X = mass, panels = (logT,entropy) and
+(logRho,logP).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Profile_Panels2</span></code> - default has X = logP, panels = Abundance and Power.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Profile_Panels3</span></code> - default has X = logP, panels = Abundance, Power,
+and Mixing.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Profile_Panels4</span></code> - default has X = logP, panels = Abundance, Power,
+Mixing, and Dynamo.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Profile_Panels5</span></code> - default has X = logP, panels = Summary_Profile,
+Mode_prop, and Mixing.</p></li>
+</ul>
+</section>
+<section id="history-track-plots-history-track1-to-history-track9">
+<h3>history track plots: <code class="docutils literal notranslate"><span class="pre">History_Track1</span></code> to <code class="docutils literal notranslate"><span class="pre">History_Track9</span></code><a class="headerlink" href="#history-track-plots-history-track1-to-history-track9" title="Link to this heading">#</a></h3>
+<p>Like TRho, HR, and other history plots, but you select the axes from
+items in your current history_columns.list.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">History_Track1</span></code> - default shows log_L vs. log_center_T</p></li>
+</ul>
+</section>
+<section id="history-panel-plots-history-panels1-to-history-panels9">
+<h3>history panel plots: <code class="docutils literal notranslate"><span class="pre">History_Panels1</span></code> to <code class="docutils literal notranslate"><span class="pre">History_Panels9</span></code><a class="headerlink" href="#history-panel-plots-history-panels1-to-history-panels9" title="Link to this heading">#</a></h3>
+<p>You select Y axes from the column heading in current LOGS/history.data.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">History_Panels1</span></code> - default shows logT, logRho, log_L, log_Teff, mass,
+mdot</p></li>
+</ul>
+</section>
+<section id="text-summary-plots-text-summary1-to-text-summary9">
+<h3>text summary plots: <code class="docutils literal notranslate"><span class="pre">Text_Summary1</span></code> to <code class="docutils literal notranslate"><span class="pre">Text_Summary9</span></code><a class="headerlink" href="#text-summary-plots-text-summary1-to-text-summary9" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Text_Summary1</span></code> - default gives info similar to standard terminal
+output</p></li>
+</ul>
+</section>
+<section id="grids-grid1-to-grid9">
+<h3>grids: <code class="docutils literal notranslate"><span class="pre">Grid1</span></code> to <code class="docutils literal notranslate"><span class="pre">Grid9</span></code><a class="headerlink" href="#grids-grid1-to-grid9" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Grid1</span></code> - default TRho_Profile, HR, TRho, Text_Summary1</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Grid2</span></code> - default TRho_Profile, Kipp</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Grid3</span></code> - default TRho_Profile, Summary_Profile, Kipp</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Grid4</span></code> - default TRho_Profile, Summary_Profile, HR, TRho, Kipp,
+Text_Summary1</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Grid5</span></code> - default TRho_Profile, Summary_Profile, HR, TRho, Kipp</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Grid6</span></code> - default Summary_Burn, Abundance, HR, TRho, Text_Summary1</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Grid7</span></code> - default Abundance, TRho, Text_Summary1</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Grid8</span></code> - default Summary_Burn, Abundance, HR, TRho, TRho_Profile,
+Text_Summary1</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Grid9</span></code> - default Abundance, HR, TRho, TRho_Profile, Text_Summary1</p></li>
+</ul>
+</section>
+</section>
+<section id="hands-on-tutorial">
+<h2>Hands-on Tutorial<a class="headerlink" href="#hands-on-tutorial" title="Link to this heading">#</a></h2>
+<p>Do this tutorial while <code class="docutils literal notranslate"><span class="pre">$MESA_DIR/star</span></code> is running and <code class="docutils literal notranslate"><span class="pre">pgstar_flag</span></code> is set
+<code class="docutils literal notranslate"><span class="pre">.true.</span></code> so you can watch as the plots change as you edit and save your
+inlist.</p>
+<p>I suggest using the test case 1M_pre_ms_to_wd. Go to the directory,
+$MESA_DIR/star/test_suite/1M_pre_ms_to_wd, and open “inlist_1.0” in your
+text editor. In the <code class="docutils literal notranslate"><span class="pre">&amp;star_job</span></code> section, set <code class="docutils literal notranslate"><span class="pre">pgstar_flag</span> <span class="pre">=</span> <span class="pre">.true.</span></code> and
+check the <code class="docutils literal notranslate"><span class="pre">&amp;pgstar</span></code> section to make sure it starts empty. Then do the
+usual <code class="docutils literal notranslate"><span class="pre">./mk</span></code> and <code class="docutils literal notranslate"><span class="pre">./rn</span></code> to start the test case.</p>
+<p>First, open some plot windows and take a look at what’s available. Just
+edit your pgstar inlist to set the “win_flag” for the plot; the changes
+will take effect on the next step after you save the file; you don’t
+need to stop and restart the run to change the plots.</p>
+<p>Start by opening the pre-defined profile plots. Copy-and-paste the
+following lines to your inlist, then do save. Take a quick look at each
+to familiarize yourself with the options.</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">TRho_Profile_win_flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.</span>
+<span class="n">Summary_Profile_win_flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.</span>
+<span class="n">Abundance_win_flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.</span>
+<span class="n">Power_win_flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.</span>
+<span class="n">Mixing_win_flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.</span>
+<span class="n">Dynamo_win_flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.</span>
+<span class="n">Mode_Prop_win_flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.</span>
+</pre></div>
+</div>
+<p>Next replace those lines by ones to open some of the history plots.
+Copy-and-paste these lines to replace the previous ones. Then do save.
+PGPLOT will ask you to hit return to close the windows that were
+previously open.</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">Kipp_win_flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.</span>
+<span class="n">TRho_win_flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.</span>
+<span class="n">HR_win_flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.</span>
+<span class="n">Summary_History_win_flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.</span>
+</pre></div>
+</div>
+<p>After looking at those, check out some of the defaults for a few of the
+multi-panel plots. As before, cut-and-paste these lines and replace the
+previous ones.</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">Profile_Panels1_win_flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.</span>
+<span class="n">Profile_Panels2_win_flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.</span>
+<span class="n">History_Track1_win_flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.</span>
+<span class="n">History_Panels1_win_flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.</span>
+<span class="n">Grid1_win_flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.</span>
+<span class="n">Grid2_win_flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.</span>
+</pre></div>
+</div>
+<p>When you’re finished admiring these beauties, delete the “<code class="docutils literal notranslate"><span class="pre">win_flag</span></code>”
+lines from your inlist, and we’ll take a look at how you can modify
+plots.</p>
+<p>Let’s start by changing some of the Abundance plot controls; do the
+changes one at a time so you can see each change. And make sure the plot
+is visible when you do the save!</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">Abundance_win_flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.</span>
+<span class="n">Abundance_win_width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span>
+<span class="n">Abundance_win_aspect_ratio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.2</span>
+<span class="n">Abundance_log_mass_frac_min</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="mi">4</span>
+<span class="n">Abundance_xaxis_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;logP&#39;</span>
+<span class="n">Abundance_xmin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">12</span>
+</pre></div>
+</div>
+<p>You can change the set of lines on the Summary_Profile plot. There is a
+control for the number of lines, and name and legend strings for each
+line. Each value can be shown scaled or unscaled. The scaling is max to
+1.0 and min to 0.0. Usually mass fractions are the only things shown
+unscaled. Here are some examples from the default settings. Note the use
+of the PGPLOT symbol for “omega”.</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">Summary_Profile_win_flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.</span>
+<span class="n">Summary_Profile_num_lines</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">11</span><span class="w"> </span><span class="c">! &lt;= 16</span>
+
+<span class="n">Summary_Profile_name</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;x&#39;</span><span class="w"> </span><span class="c">! hydrogen mass fraction</span>
+<span class="n">Summary_Profile_legend</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;X&#39;</span>
+<span class="n">Summary_Profile_scaled_value</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="p">.</span><span class="n">false</span><span class="p">.</span>
+
+<span class="n">Summary_Profile_name</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;y&#39;</span><span class="w"> </span><span class="c">! helium mass fraction</span>
+<span class="n">Summary_Profile_legend</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Y&#39;</span>
+<span class="n">Summary_Profile_scaled_value</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">false</span><span class="p">.</span>
+
+<span class="n">Summary_Profile_name</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;log_j_rot&#39;</span><span class="w"> </span><span class="c">! specific angular momentum</span>
+<span class="n">Summary_Profile_legend</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;log j rel&#39;</span>
+
+<span class="n">Summary_Profile_name</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;log_omega&#39;</span><span class="w"> </span><span class="c">! angular velocity</span>
+<span class="n">Summary_Profile_legend</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;log (0650) rel&#39;</span>
+</pre></div>
+</div>
+<p>Open the Summary_Profile window, then make some changes. Note that you
+can remove a line just by setting the name to <code class="docutils literal notranslate"><span class="pre">''</span></code>; you don’t have to
+renumber the other lines.</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">Summary_Profile_num_lines</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">12</span><span class="w"> </span><span class="c">! &lt;= 16</span>
+<span class="n">Summary_Profile_name</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;zone&#39;</span>
+<span class="n">Summary_Profile_name</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&#39;</span>
+<span class="n">Summary_Profile_name</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&#39;</span>
+</pre></div>
+</div>
+<p>You can change the set of lines on the Summary_History plot. There is a
+control for the number of lines, and name and legend strings for each
+line. Each value can be shown scaled or unscaled. The scaling is max to
+1.0 and min to 0.0. Usually mass fractions are the only things shown
+unscaled. Here are some examples from the default settings. Note the use
+of PGPLOT text controls for the subscript “c” for center values.</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">Summary_History_num_lines</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="c">! &lt;= 16</span>
+
+<span class="n">Summary_History_name</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;log_center_T&#39;</span>
+<span class="n">Summary_History_legend</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;log T\dc\u rel&#39;</span>
+
+<span class="n">Summary_History_name</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;log_center_Rho&#39;</span>
+<span class="n">Summary_History_legend</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;log Rho\dc\u rel&#39;</span>
+</pre></div>
+</div>
+<p>Open the Summary_History window, then make some changes.  Note that
+you can remove a line just by setting the name to <code class="docutils literal notranslate"><span class="pre">''</span></code>; you don’t have
+to renumber the other lines.</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">Summary_History_win_flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.</span>
+<span class="n">Summary_History_num_lines</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">9</span>
+<span class="n">Summary_History_name</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;star_mass&#39;</span>
+<span class="n">Summary_History_name</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;log_abs_mdot&#39;</span>
+<span class="n">Summary_History_name</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&#39;</span>
+<span class="n">Summary_History_name</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&#39;</span>
+</pre></div>
+</div>
+<p>Next, turn on the History_Track1 plot.  Then change what it is
+plotting by editing the axis name and label. Here’s an example.  After
+that, try plotting some other combinations; just pick axis names from
+the column headings in your current LOGS/history.data.</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">History_Track1_win_flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.</span>
+
+<span class="n">History_Track1_xname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;log_center_P&#39;</span>
+<span class="n">History_Track1_xaxis_label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;log P\dcenter&#39;</span>
+<span class="n">History_Track1_title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;L vs Center P&#39;</span>
+</pre></div>
+</div>
+<p>Turn on <code class="docutils literal notranslate"><span class="pre">Profile_Panels1</span></code> and <code class="docutils literal notranslate"><span class="pre">History_Panels1</span></code>; they are set up with
+defaults for the number of panels and axes.  Change the defaults to
+show other things – for the profiles you can select anything that can
+be in a profile_columns.list; for the history you have to select one
+of the column headings in your current LOGS/history.data.</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">History_Panels1_win_flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.</span>
+<span class="n">History_Panels1_other_yaxis_name</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;log_center_P&#39;</span>
+
+<span class="n">Profile_Panels1_win_flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.</span>
+<span class="n">Profile_Panels1_xaxis_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;logP&#39;</span>
+<span class="n">Profile_Panels1_xaxis_reversed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.</span>
+</pre></div>
+</div>
+<p>Add another panel to the Profile plot.</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">Profile_Panels1_num_panels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span>
+<span class="n">Profile_Panels1_yaxis_name</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;logtau&#39;</span>
+<span class="n">Profile_Panels1_other_yaxis_name</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;log_opacity&#39;</span>
+</pre></div>
+</div>
+<p>Increase the y margins.</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">Profile_Panels1_ymargin</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.2</span>
+<span class="n">Profile_Panels1_other_ymargin</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.2</span>
+<span class="n">Profile_Panels1_ymargin</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.2</span>
+<span class="n">Profile_Panels1_other_ymargin</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.2</span>
+<span class="n">Profile_Panels1_ymargin</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.2</span>
+<span class="n">Profile_Panels1_other_ymargin</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.2</span>
+</pre></div>
+</div>
+<p>Change the aspect ratio, reduce the width, and fix the left and right margins.</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">Profile_Panels1_win_aspect_ratio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="w"> </span><span class="c">! aspect_ratio = height/width</span>
+<span class="n">Profile_Panels1_win_width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span>
+<span class="n">Profile_Panels1_xleft</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.18</span>
+<span class="n">Profile_Panels1_xright</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.82</span>
+</pre></div>
+</div>
+<p>Pick some other axis names and change what is shown in the panels.
+You can use any name that is valid in a profile_columns.list; unlike
+the history case, you don’t have to limit yourself to the contents of
+your current list.</p>
+<p>Next, take a look at the following default definition for
+Profile_Panels3.</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">Profile_Panels3_xaxis_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;logP&#39;</span>
+<span class="n">Profile_Panels3_xaxis_reversed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.</span>
+<span class="n">Profile_Panels3_num_panels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span>
+<span class="n">Profile_Panels3_yaxis_name</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Abundance&#39;</span>
+<span class="n">Profile_Panels3_yaxis_name</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Power&#39;</span>
+<span class="n">Profile_Panels3_yaxis_name</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Mixing&#39;</span>
+</pre></div>
+</div>
+<p>Open the plot window and then change the number of panels and the
+contents.  Revise the title and switch the xaxis to mass.</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">Profile_Panels3_win_flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.</span>
+<span class="n">Profile_Panels3_num_panels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span>
+<span class="n">Profile_Panels3_yaxis_name</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Dynamo&#39;</span>
+<span class="n">Profile_Panels3_title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Abundance-Power-Mixing-Dynamo&#39;</span>
+<span class="n">Profile_Panels3_xaxis_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;mass&#39;</span>
+<span class="n">Profile_Panels3_xaxis_reversed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">false</span><span class="p">.</span>
+</pre></div>
+</div>
+<p>Now, edit the definition of the Grid1 plot.  Replace the TRho_Profile
+plot by the Kipp plot and adjust the margins and text scale.</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">Grid1_win_flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.</span>
+<span class="n">Grid1_plot_name</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Kipp&#39;</span>
+<span class="n">Grid1_plot_pad_left</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.03</span><span class="w"> </span><span class="c">! fraction of full window width for padding on left</span>
+<span class="n">Grid1_plot_pad_right</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.03</span><span class="w"> </span><span class="c">! fraction of full window width for padding on right</span>
+<span class="n">Grid1_plot_pad_bot</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.12</span><span class="w"> </span><span class="c">! fraction of full window height for padding at bottom</span>
+<span class="n">Grid1_txt_scale_factor</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.6</span><span class="w"> </span><span class="c">! multiply txt_scale for subplot by this</span>
+</pre></div>
+</div>
+<p>Move the text summary up to just below the Kipp plot, and increase the
+number of rows to make the HR and TRho plots taller.  This will
+temporarily mess us the spacing between the subplots, but we’ll fix
+that next.</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">Grid1_num_rows</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">9</span><span class="w"> </span><span class="c">! divide plotting region into this many equal height rows</span>
+<span class="n">Grid1_plot_row</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="c">! number from 1 at top</span>
+<span class="n">Grid1_plot_rowspan</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="c">! plot spans this number of rows</span>
+<span class="n">Grid1_plot_row</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="c">! number from 1 at top</span>
+<span class="n">Grid1_plot_rowspan</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="c">! plot spans this number of rows</span>
+<span class="n">Grid1_plot_row</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="c">! number from 1 at top</span>
+<span class="n">Grid1_plot_rowspan</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="c">! plot spans this number of rows</span>
+</pre></div>
+</div>
+<p>After that, fix the padding between the plots and adjust the text sizes.</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">Grid1_plot_pad_top</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.01</span><span class="w"> </span><span class="c">! fraction of full window height for padding at top</span>
+<span class="n">Grid1_plot_pad_bot</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.1</span><span class="w"> </span><span class="c">! fraction of full window height for padding at bottom</span>
+<span class="n">Grid1_plot_pad_left</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.05</span><span class="w"> </span><span class="c">! fraction of full window width for padding on left</span>
+<span class="n">Grid1_plot_pad_right</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.1</span><span class="w"> </span><span class="c">! fraction of full window width for padding on right</span>
+<span class="n">Grid1_txt_scale_factor</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.6</span><span class="w"> </span><span class="c">! multiply txt_scale for subplot by this</span>
+
+<span class="n">Grid1_plot_pad_top</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.01</span><span class="w"> </span><span class="c">! fraction of full window height for padding at top</span>
+<span class="n">Grid1_plot_pad_bot</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.1</span><span class="w"> </span><span class="c">! fraction of full window height for padding at bottom</span>
+<span class="n">Grid1_plot_pad_left</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.1</span><span class="w"> </span><span class="c">! fraction of full window width for padding on left</span>
+<span class="n">Grid1_plot_pad_right</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.05</span><span class="w"> </span><span class="c">! fraction of full window width for padding on right</span>
+<span class="n">Grid1_txt_scale_factor</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.6</span><span class="w"> </span><span class="c">! multiply txt_scale for subplot by this</span>
+
+<span class="n">Grid1_plot_pad_top</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.00</span><span class="w"> </span><span class="c">! fraction of full window height for padding at top</span>
+<span class="n">Grid1_plot_pad_bot</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.05</span><span class="w"> </span><span class="c">! fraction of full window height for padding at bottom</span>
+</pre></div>
+</div>
+<p>Change the text summary to report ‘log_L_div_Ledd’ instead of ‘log_LH’.</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">Text_Summary1_name</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;log_L_div_Ledd&#39;</span>
+</pre></div>
+</div>
+<p>Finally, take a quick look at the various multi-panel and grid
+defaults (listed above).  You are not limited to those, but they might
+give you ideas for your own personalized plots.  Here are some of my
+favorites – you might also find them useful.</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">Grid8_win_flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.</span><span class="w"> </span><span class="c">! Summary_Burn, Abundance, HR, TRho, TRho_Profile, Text_Summary1</span>
+<span class="n">Profile_Panels4_win_flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.</span><span class="w"> </span><span class="c">! Abundance, Power, Mixing, and Dynamo</span>
+<span class="n">History_Panels1_win_flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.</span><span class="w"> </span><span class="c">! logT, logRho, log_L, log_Teff, mass, mdot</span>
+</pre></div>
+</div>
+<p>If you don’t have rotation turned on, change from Profile_Panels4 to
+Profile_Panels3, or edit your controls for Profile_Panels4 to drop the
+last panel.</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">Profile_Panels3_win_flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.</span><span class="w"> </span><span class="c">! Abundance, Power, and Mixing</span>
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">Profile_Panels4_num_panels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span>
+<span class="n">Profile_Panels4_title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Abundance-Power-Mixing&#39;</span>
+</pre></div>
+</div>
+<p>PGSTAR has a number of options to control its file output.</p>
+<p>The default output format is PNG</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">file_device</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;png&#39;</span>
+</pre></div>
+</div>
+<p>but you can use PostScript output by setting</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">file_device</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;vcps&#39;</span>
+</pre></div>
+</div>
+<p>You can change the foreground/background color of your plots between
+black/white and white/black</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="c">! white_on_black flags -- true means white foreground color on black background</span>
+<span class="n">file_white_on_black_flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.</span>
+</pre></div>
+</div>
+<p>and control the number of digits that appear in the filenames</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">file_digits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="c">! number of digits for model_number in filenames</span>
+</pre></div>
+</div>
+<p>In addition, each plot has controls for its own file output similar to
+the following ones for the TRho_Profile:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">TRho_Profile_file_dir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;png&#39;</span>
+<span class="n">TRho_Profile_file_flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">false</span><span class="p">.</span>
+<span class="n">TRho_Profile_file_prefix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;trho_profile_&#39;</span>
+<span class="n">TRho_Profile_file_interval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="c">! output when mod(model_number,TRho_Profile_file_interval)==0</span>
+<span class="n">TRho_Profile_file_width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="w"> </span><span class="c">! (inches) negative means use same value as for window</span>
+<span class="n">TRho_Profile_file_aspect_ratio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="w"> </span><span class="c">! negative means use same value as for window</span>
+</pre></div>
+</div>
+<p>A directory with the name given by the value of
+TRho_Profile_file_dir (in this case, the default value, which is
+“png”) must exist in the work directory in order for the files to be
+stored.  Otherwise MESA will run, but fail to write the png files.
+Make sure to create such a directory first!  (If you’re using
+PostScript output, you probably want to create a directory named “ps”
+and set TRho_Profile_file_dir=’ps’.)</p>
+<p>Finally, there is an HR distance trigger for file output.</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="c">! trigger file output by distance traveled on HR diagram</span>
+<span class="n">delta_HR_limit_for_file_output</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="w"> </span><span class="c">! negative means no limit</span>
+
+<span class="c">! HR distance since last file output = sum of dHR</span>
+<span class="c">! where per step dHR = same definition as used for timestep limits</span>
+<span class="c">! dHR = sqrt((delta_HR_ds_L*dlgL)**2 + (delta_HR_ds_Teff*dlgTeff)**2)</span>
+<span class="c">! dlgL = log10(L/L_prev)</span>
+<span class="c">! dlgTeff = log10(Teff/Teff_prev)</span>
+</pre></div>
+</div>
+<p>There are a variety of tools available for combining png files in
+movies.</p>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="output.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">MESA output</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="building_inlists.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Building inlists</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-pgstar">Overview of PGSTAR</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#profile-plots-and-history-plots">Profile Plots and History Plots</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#single-panel-multiple-panel-and-grid-plots">Single Panel, Multiple Panel, and Grid Plots</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#general-controls">General Controls</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-inventory-of-plots">The Inventory of Plots</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#single-panel-profile-plots">single panel profile plots</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#single-panel-history-plots">single panel history plots</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#profile-panel-plots-profile-panels1-to-profile-panels9">profile panel plots: <code class="docutils literal notranslate"><span class="pre">Profile_Panels1</span></code> to <code class="docutils literal notranslate"><span class="pre">Profile_Panels9</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#history-track-plots-history-track1-to-history-track9">history track plots: <code class="docutils literal notranslate"><span class="pre">History_Track1</span></code> to <code class="docutils literal notranslate"><span class="pre">History_Track9</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#history-panel-plots-history-panels1-to-history-panels9">history panel plots: <code class="docutils literal notranslate"><span class="pre">History_Panels1</span></code> to <code class="docutils literal notranslate"><span class="pre">History_Panels9</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#text-summary-plots-text-summary1-to-text-summary9">text summary plots: <code class="docutils literal notranslate"><span class="pre">Text_Summary1</span></code> to <code class="docutils literal notranslate"><span class="pre">Text_Summary9</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grids-grid1-to-grid9">grids: <code class="docutils literal notranslate"><span class="pre">Grid1</span></code> to <code class="docutils literal notranslate"><span class="pre">Grid9</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-tutorial">Hands-on Tutorial</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The MESA Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, The MESA Team.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,9 @@
+&star_job
+    pgstar_flag = .true.
+/
+
+&controls
+    initial_mass = 1.0d0
+    initial_z = 0.02d0
+    max_age = 1.0d10
+/

@@ -1,0 +1,246 @@
+# Building inlists
+
+Inlists for MESA are composed of five main sections labeled ``&star_job``, ``&controls``.
+``&eos``,  ``&skap`` and ``&pgstar``. The ``&star_job`` section contains instructions about which MESA modules should be used, while the ``&controls`` section is where the star module options are specified. The ``&kap`` and ``&eos`` sections are where you specify controls for the opacity and the equation of state, respectively.
+The ``&pgstar`` section contains the commands for creating pgstar plots.
+
+## ``&star_job``
+
+The main modules of MESA (other than **star**) are the [
+Equation of state (eos)
+](../modules.html#eos), the [
+Opacities (kap)
+](../modules.html#kap), the [
+Atmospheres (atm)
+](../modules.html#atm), the nuclear reactions.
+In this section of the inlist, you’ll have to make choices for which atmosphere and nuclear reactions network you want to use, as well as which nuclear reactions rates you want to use.
+You will also specify here some information about your starting model, and about the output of the evolution.
+Here we describe only some of the most commonly used controls. For a complete list of available controls see [
+star_job
+](../reference/star_job.html#star-job).
+
+### Starting model
+
+To start an evolution you can either create a pre main sequence model and start from there (case 1) or you can start from a previously calculated model (case 2). In the latter case, it is highly recommended to start from a model which was calculated with the same MESA version as the one used for the subsequent evolution.
+
+Case 1:
+
+```
+      create_pre_main_sequence_model = .true.
+      load_saved_model = .false.
+```
+
+Case 2:
+
+```
+      create_pre_main_sequence_model = .false.
+      load_saved_model = .true.
+      load_model_filename = 'start.mod'
+```
+
+### Output
+
+There are a number of controls to specify what we want as MESA outputs.
+The history file contains global information about the star at some timesteps. The profile files contain information about the interior profiles in the stellar model at a given time. The defaults for these files are located in ``$MESA_DIR/star/defaults``.
+If you want output different from the defaults, copy those files in your working directory, rename them (here we use ``my_history_columns.list`` and ``my_profile_columns.list``) , and customize them to your liking. If you include the following lines in your inlist, MESA will use the files sitting in your working directory rather than the default files.
+
+```
+      history_columns_file = 'my_history_columns.list'
+      profile_columns_file = 'my_profile_columns.list'
+```
+
+You may want to save the final model of your evolution. In that case you have to tell MESA to do so (default is ``save_model_when_terminate=.false.``) and specify the name of the last model.
+
+```
+      save_model_when_terminate = .true.
+      save_model_filename = 'final.mod'
+```
+
+### Initial composition
+
+There are several ways to specify the initial composition.
+(to be filled in).
+
+You can also use pre-defined chemical compositions based on published data. These are set using the control ``ìnitial_zfracs``.
+By default, the initial composition in MESA is ``initial_zfracs` `=` `3`` which corresponds to the [GS98](https://link.springer.com/article/10.1023%2FA%3A1005161325181) metal fraction. There are 8 possible predefined choices for this control in MESA.
+
+If you want for example to use the more recent available solar composition given in [AGSS09](https://www.annualreviews.org/doi/pdf/10.1146/annurev.astro.46.060407.145222) , you need to set ``initial_zfracs` `=` `6``.
+Since it is very important to use the opacity tables which are built using the solar composition used, we also have to set the ``kap_file_prefix`` to the 2009 solar composition (the default table corresponds to the gs98 composition).
+
+```
+      initial_zfracs = 6
+      kappa_file_prefix = 'a09'
+```
+
+### Nuclear reactions
+
+Choice of network of nuclear reactions. This network should be chosen according to the physics to be studied. Choosing a very comprehensive set of nuclear reactions when studying main sequence evolution is not necessary and will slow down the computation considerably. It would however be essential when studying advanced burning stages of evolution. The description of the available nuclear reactions networks in MESA is given in the README file in ``$MESA_DIR/data/net_data``. The default reactions network used by MESA is ``basic.net``.
+
+For example when evolving a stellar model on the horizontal branch (helium burning) this net is insufficient. One possibility is to use the nuclear reactions network called ``pp_and_cno_extras.net``, which provides a more complete coverage for hydrogen and helium burning.
+
+```
+      change_initial_net = .true.
+      new_net_name = 'pp_and_cno_extras.net'
+```
+
+## ``&controls``
+
+### Energy equation
+
+The energy equation can be written in the dLdm or the dedt form in MESA (see [MESAV](https://arxiv.org/pdf/1903.01426.pdf)).
+As explained in [MESAV](https://arxiv.org/pdf/1903.01426.pdf), using the dedt form leads to much better energy conservation.
+The dLdm form is currently the default in MESA. If the dEdt form is preferred it has to be specified in the inlist.
+
+```
+      energy_eqn_option = 'dedt'
+```
+
+### Starting mass and metallicity
+
+The main stellar parameters to specify are its initial mass M, metallicity Z, and helium fraction Y.
+If only M and Z are specified,the helium content is by default Y=0.24 + 2Z.
+
+```
+      initial_mass = 2.0
+      initial_z = 2d-2
+```
+
+### When to stop
+
+### Opacity controls
+
+Type2 opacities should be used for extra C/O during and after He burning. To use Type2 opacities one needs to specify a base metallicity, Zbase, which gives the metal abundances previous to any CO enhancement. In regions where central hydrogen is above a given threshold, or the metallicity is not significantly higher than Zbase, Type1 tables are used instead, with blending regions to smoothly transition from one to the other. The reason is that Type1 tables cover a wider range of X and have a higher resolution in Z for each X. For more info, refer to the ``$MESA_DIR/star/defaults/controls.defaults`` file.
+
+If the evolution includes helium burning, type2 opacities should be used.
+
+```
+      use_Type2_opacities = .true.
+      Zbase = 2d-2
+```
+
+### Convection and Convective boundaries
+
+Convection in MESA is treated using the MLT theory of convection, and provides different formalisms. By default, MESA uses the [Cox&Giuli 1968](https://ui.adsabs.harvard.edu/abs/1968pss..book.....C/abstract) formalism.
+
+If you want to use another formalism, for example the [Henyey theory of convection](http://articles.adsabs.harvard.edu/pdf/1965ApJ...142..841H) it can be specified using the ``MLT_option`` control. Several parameters can be specified for this option. The main one is the mixing length parameter. Note that the default value for this parameter in MESA is ``mixing_length_alpha=2``. This value does not come from any calibration.
+
+```
+      MLT_option = 'Henyey'
+      mixing_length_alpha = 1.8d0
+```
+
+There are two possible criteria that can be used to determine the position of the convective boundaries: the Schwarzschild and Ledoux criteria. By default, MESA uses the Schwarzschild criterion. If determined correctly, the position of the convective boundaries should not depend on which criterion is used. But using the Schwarzschild or the Ledoux criterion can lead to different abundance profiles outside the convective region. There are extensive discussions about this topic in the [MESAIV](https://arxiv.org/pdf/1710.08424.pdf) and [MESAV](https://arxiv.org/pdf/1903.01426.pdf) papers.
+Two new algorithms have been introduced in MESA, called **Predictive mixing** (described in [MESAIV](https://arxiv.org/pdf/1710.08424.pdf) )and **Convective PreMixing**, described in [MESAV](https://arxiv.org/pdf/1903.01426.pdf)). By default, none of these are used in MESA, which can lead to very incorrectly determined convective boundaries, with important consequences on the evolution of the stellar model. It is therefore highly recommended to use one of these algorithms.
+
+If using **Convective premixing**, there is no additional parameter to specify.
+
+```
+      use_Ledoux_criterion = .true.
+      do_conv_premix = .true.
+```
+
+If using **Predictive mixing**, there are additional controls. They are described in [MESAIV](https://arxiv.org/pdf/1710.08424.pdf) .
+
+```
+      predictive_mix(1) = .true.
+      predictive_zone_type(1) = 'any'
+      predictive_zone_loc(1) = 'core'
+      predictive_bdy_loc(1) = 'any'
+      predictive_superad_thresh(1) = 0.005
+
+      predictive_mix(2) = .true.
+      predictive_zone_type(2) = 'any'
+      predictive_zone_loc(2) = 'surf'
+      predictive_bdy_loc(2) = 'any'
+      predictive_superad_thresh(2) = 0.001
+```
+
+### Overshooting
+
+### Timestep and grid controls
+
+## ``&kap``
+
+## ``&eos``
+
+## ``&colors``
+
+The ``&colors`` section configures the custom colors module for calculating synthetic photometry during stellar evolution. This module interpolates stellar atmosphere models to compute bolometric magnitudes and synthetic magnitudes in specified photometric filters, adding these as extra history columns.
+
+### Enabling Synthetic Photometry
+
+To activate the colors module, set the ``use_colors`` control to ``.true.``. This enables the computation of synthetic magnitudes at each timestep using interpolated stellar atmosphere models.
+
+```
+      ! Enable the colors module
+      use_colors = .true.
+
+      ! Filter system specification
+      ! This points to a directory containing Johnson filter transmission curves.
+      ! The Johnson directory should contain files like:
+      !   - U.dat, B.dat, V.dat, R.dat, I.dat, J.dat, M.dat   (filter transmission curves)
+      instrument = 'data/colors_data/filters/Generic/Johnson'
+
+      ! Stellar atmosphere model directory
+      ! Should contain:
+      ! - lookup_table.csv: mapping file with columns for filename, Teff, log_g, metallicity
+      ! - Individual SED files: wavelength vs surface flux for each stellar model
+      ! - flux_cube.bin: pre-computed interpolation grid (if using linear/hermite interpolation)
+      stellar_atm = 'data/colors_data/stellar_models/Kurucz2003all/'
+
+      ! Physical parameters for synthetic photometry
+      distance = 3.0857d19         ! Distance to star in cm (1 pc = 3.0857e16 m for absolute mags)
+
+      ! Output options
+      colors_results_directory = 'SED'
+      make_csv = .true.            ! Write detailed SED files showing filter convolution  -- This is also needed for plotting the SED.
+                                   ! Creates files like: SED/B_SED.csv, SED/VEGA_B_SED.csv
+
+      !zero point. Select between: Vega, AB, ST
+      mag_system = 'Vega'
+
+      ! Vega spectrum for zero-point calibration
+      ! This file should contain wavelength (Å) and flux (erg/s/cm²/Å) columns
+      ! Used to define the zero-point of the magnitude system (Vega = 0.0 mag)
+      vega_sed = 'data/colors_data/stellar_models/vega_flam.csv'
+```
+
+### Key Controls
+
+-
+**use_colors**: Enables or disables the colors module (default: ``.false.``).
+
+-
+**instrument**: Specifies the photometric system or filter set (e.g., ‘Gaia’).
+
+-
+**stellar_atm**: Path to the stellar atmosphere model grid (e.g., Kurucz 2003 models).
+
+-
+**vega_sed**: Path to the Vega reference spectrum for zero-point calibration.
+
+-
+**distance**: Assumed distance to the star in parsecs for absolute magnitudes (default: 10 pc).
+
+-
+**make_csv**: If ``.true.``, outputs SED and photometry results as CSV files for verification.
+
+-
+**colors_results_directory**: Directory for storing output CSV files if ``make_csv`` is enabled.
+
+The module uses a pre-computed grid of stellar atmosphere models (e.g., Kurucz 2003, covering Teff = 3500-50000 K, log g = 0.0-5.0, [M/H] = -5.0 to +1.0) to interpolate spectral energy distributions (SEDs) based on the star’s evolving parameters (Teff, log g, metallicity). These SEDs are convolved with filter transmission curves to produce synthetic magnitudes.
+
+### Additional History Columns
+
+When enabled, the module adds the following columns to the history file:
+
+-
+``Mag_bol``: Bolometric magnitude.
+
+-
+``Flux_bol``: Bolometric flux.
+
+-
+Filter-specific magnitudes (e.g., ``Gbp``, ``G``, ``Grp``, ``Grvs``).
+
+Ensure the filter names match those in the ``instrument`` directory.
